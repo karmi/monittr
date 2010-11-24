@@ -4,6 +4,17 @@ require 'ostruct'
 
 module Monittr
 
+  class Cluster
+
+    attr_reader :servers
+
+    def initialize(urls=[])
+      @servers = urls.map { |url| Server.fetch(url) }
+    end
+
+  end
+
+
   # Represents one monitored system instance
   #
   class Server

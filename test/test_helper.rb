@@ -17,7 +17,7 @@ class Test::Unit::TestCase
   end
 
   def fixtures_path
-    Pathname( File.expand_path( 'fixtures', File.dirname(__FILE__) ) )
+    Pathname( File.expand_path( '../fixtures', __FILE__ ) )
   end
 
   def fixture_file(path)

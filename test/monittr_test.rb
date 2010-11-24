@@ -4,7 +4,20 @@ module Monittr
 
   class MonittrTest < Test::Unit::TestCase
 
-    context "Monittr" do
+    context "Cluster" do
+
+      should "be initialized with URLs" do
+        assert_nothing_raised do
+          cluster = Monittr::Cluster.new %w[ http://admin:monit@localhost:2812/_status?format=xml
+                                             http://admin:monit@localhost:2812/_status?format=xml ]
+          assert_not_nil cluster.servers
+          assert_equal 2, cluster.servers.size
+        end
+      end
+
+    end
+
+    context "Server" do
 
       setup do
         @server = Server.new( fixture_file('status.xml') )
