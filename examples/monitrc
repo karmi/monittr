@@ -1,0 +1,29 @@
+# ##########################################
+# Run me with `monit -I -c examples/monitrc`
+# ##########################################
+
+set daemon  120
+
+set alert user@example.com
+set mailserver localhost
+
+set httpd port 2812 and
+   use address localhost
+   allow localhost
+
+check system myapplication.cz
+  if loadavg (1min) > 4 then alert
+  if loadavg (5min) > 2 then alert
+  if memory usage > 75% then alert
+  if cpu usage (user) > 70% then alert
+  if cpu usage (system) > 30% then alert
+  if cpu usage (wait) > 20% then alert
+
+check filesystem tmp with path /tmp
+  if space usage > 90% for 5 times within 15 cycles then alert
+  if inode usage > 30000 then alert
+  group myapplication.cz
+
+check host sinatra with address 127.0.0.1
+  if failed url http://127.0.0.1:4567/ with timeout 15 seconds then alert
+  group myapplication.cz
