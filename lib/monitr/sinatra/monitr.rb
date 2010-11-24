@@ -10,7 +10,7 @@ module Sinatra
       end
 
       def monit_html
-        ERB.new( File.read( File.expand_path('../template.erb', __FILE__) ) ).result(binding)
+        ERB.new( File.read( settings.template ) ).result(binding)
       end
     end
 
@@ -18,6 +18,7 @@ module Sinatra
       app.helpers MonitrHTML::Helpers
 
       app.set :monit_url, 'http://admin:monit@localhost:2812/_status?format=xml'
+      app.set :template,  File.expand_path('../template.erb', __FILE__)
     end
 
   end

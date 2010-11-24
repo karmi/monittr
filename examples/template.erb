@@ -1,0 +1,17 @@
+<style>body { font-family: sans-serif; }</style>
+
+<p>You can customize the template as you wish,
+  just set the path to it with something like:</p>
+
+<pre>set :template,  Proc.new { File.join(root, 'template.erb') }</pre>
+
+<hr>
+
+<h2>Server: <em><%= monit.system.name %></em> // status: <%= monit.system.status %></h2>
+
+<h3>Processes</h3>
+<ul>
+  <% monit.processes.each do |process| %>
+  <li><%= process.name %></li>
+  <% end %>
+</ul>
