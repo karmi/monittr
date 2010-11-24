@@ -4,7 +4,7 @@ require 'erb'
 module Sinatra
   module MonitrHTML
     def monit
-      ::Monitr::Server.new
+      Monitr::Server.fetch
     end
 
     def monit_html

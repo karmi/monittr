@@ -3,7 +3,6 @@ require 'open-uri'
 require 'ostruct'
 
 module Monitr
-  MONIT_URL = ENV['MONIT_URL'] || 'http://username:password@localhost:2812/_status?format=xml'
 
   # Represents one monitored system instance
   #
@@ -11,11 +10,16 @@ module Monitr
 
     attr_reader :xml, :system, :filesystems, :processes
 
-    def initialize
-      @xml    = Nokogiri::HTML(open( MONIT_URL ))
-      @system = Services::System.new(@xml.xpath("//service[@type=5]").first)
+    def initialize(xml)
+      @xml         = Nokogiri::XML(xml)
+      @system      = Services::System.new(@xml.xpath("//service[@type=5]").first)
       @filesystems = @xml.xpath("//service[@type=0]").map { |xml| Services::Filesystem.new(xml) }
       @processes   = @xml.xpath("//service[@type=3]").map { |xml| Services::Process.new(xml) }
+    end
+
+    def self.fetch(url=nil)
+      url = url || ENV['MONIT_URL'] || 'http://username:password@localhost:2812/_status?format=xml'
+      self.new( open(url) )
     end
 
   end
