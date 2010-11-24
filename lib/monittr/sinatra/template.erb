@@ -2,6 +2,8 @@
 
 <div id="monittr">
 
+  <p id="toggle">+ Expand all</p>
+
   <div class="server">
     <h2>
       <strong>
@@ -18,52 +20,75 @@
       </small>
     </h2>
 
-    <div class="segment filesystem">
-      <h3>Filesystem</h3>
-      <ul class="clearfix">
-        <% monit.filesystems.each do |fs| %>
-        <li>
-          <strong title="(<%= fs.usage %> of <%= fs.total %>)">
-            <span class="dot status <%= fs.status == 0 ? 'running' : 'failure' %>">&middot;</span>
-            <span class="dot monitored <%= fs.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
-            <%= fs.name %>
-          </strong>
-          <%= fs.percent %>%  
-        </li>
-        <% end %>
-      </ul>
-      <div class="clear"></div>
-    </div><!-- /filesystem -->
+    <div class="content">
+      <div class="segment filesystem">
+        <h3>Filesystem</h3>
+        <ul class="clearfix">
+          <% monit.filesystems.each do |fs| %>
+          <li>
+            <strong title="(<%= fs.usage %> of <%= fs.total %>)">
+              <span class="dot status <%= fs.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+              <span class="dot monitored <%= fs.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
+              <%= fs.name %>
+            </strong>
+            <%= fs.percent %>%  
+          </li>
+          <% end %>
+        </ul>
+        <div class="clear"></div>
+      </div><!-- /filesystem -->
 
-    <div class="segment processes">
-      <h3>Processes</h3>
-      <ul>
-        <% monit.processes.each do |process| %>
-        <li>
-          <strong>
-            <span class="dot status <%= process.status == 0 ? 'running' : 'failure' %>">&middot;</span>
-            <span class="dot monitored <%= process.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
-            <%= process.name %>
-            <% unless process.monitored == 1 %><span class="label warning">NOT MONITORED</span><% end %>
-          </strong>
+      <div class="segment processes">
+        <h3>Processes</h3>
+        <ul>
+          <% monit.processes.each do |process| %>
+          <li>
+            <strong>
+              <span class="dot status <%= process.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+              <span class="dot monitored <%= process.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
+              <%= process.name %>
+              <% unless process.monitored == 1 %><span class="label warning">NOT MONITORED</span><% end %>
+            </strong>
 
-          <small>
-            <span class="info"><span class="label">cpu:    </span><%= process.cpu    || 'N/A' %></span>
-            <span class="info"><span class="label">memory: </span><%= process.memory || 'N/A' %></span>
-            <span class="info"><span class="label">uptime: </span><%= process.uptime || 'N/A' %></span>
-          </small>
-        </li>
-        <% end %>
-      </ul>
-      <div class="clear"></div>
-    </div><!-- /filesystem -->
+            <small>
+              <span class="info"><span class="label">cpu:    </span><%= process.cpu    || 'N/A' %></span>
+              <span class="info"><span class="label">memory: </span><%= process.memory || 'N/A' %></span>
+              <span class="info"><span class="label">uptime: </span><%= process.uptime || 'N/A' %></span>
+            </small>
+          </li>
+          <% end %>
+        </ul>
+        <div class="clear"></div>
+      </div><!-- /filesystem -->
 
-    <div class="segment connections clearfix">
-      <div class="clear"></div>
-    </div><!-- /connections-->
+      <div class="segment connections clearfix">
+        <div class="clear"></div>
+      </div><!-- /connections-->
+    </div><!-- /content -->
 
     <div class="clear"></div>
   </div><!-- /server -->
 
   <div class="clear"></div>
 </div><!-- /monittr -->
+
+<script>if ('undefined' == typeof jQuery) { document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js\"></"+"script>"); }</script>
+
+<script>
+$('#monittr .server .content').hide();
+
+$('#monittr .server h2').click(function() {
+  $(this).parent().find('.content').toggle('fast', function() { });
+});
+
+$('#toggle').toggle(
+  function() {
+    $('#monittr .server .content').show('fast');
+    $(this).html('- Collapse all');
+  },
+  function() {
+    $('#monittr .server .content').hide('fast');
+    $(this).html('+ Expand all');
+  }
+);
+</script>

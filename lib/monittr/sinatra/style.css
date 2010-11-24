@@ -4,6 +4,11 @@
 #monittr .clear
   { clear:both; display:block; overflow:hidden; visibility:hidden; width:0; height:0 }
 
+#monittr #toggle
+  { font-size: 80%;
+    text-decoration: underline;
+    text-align: right; }
+
 #monittr .dot
   { text-indent: -9000px;
     background-color: #ccc;
