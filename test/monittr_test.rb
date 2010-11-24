@@ -42,8 +42,8 @@ module Monittr
         thin = @server.processes.first
         assert_not_nil thin
         assert_equal 1, thin.monitored
-        assert_equal 1, thin.memory
-        assert_equal 0, thin.cpu
+        assert_equal 1.2, thin.memory
+        assert_equal 0.0, thin.cpu
       end
 
     end
