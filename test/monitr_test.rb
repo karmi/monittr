@@ -22,6 +22,7 @@ module Monitr
         assert_equal 'myapplication.cz', @server.system.name
         assert_equal 5.28, @server.system.load
         assert_equal 0,    @server.system.status
+        assert_equal 937661, @server.system.uptime
       end
 
       should "return filesystems info" do
