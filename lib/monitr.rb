@@ -1,5 +1,5 @@
 require 'nokogiri'
-require 'open-uri'
+require 'rest-client'
 require 'ostruct'
 
 module Monitr
@@ -18,8 +18,8 @@ module Monitr
     end
 
     def self.fetch(url=nil)
-      url = url || ENV['MONIT_URL'] || 'http://username:password@localhost:2812/_status?format=xml'
-      self.new( open(url) )
+      url = url || ENV['MONIT_URL'] || 'http://admin:monit@localhost:2812/_status?format=xml'
+      self.new( RestClient.get(url) )
     end
 
   end

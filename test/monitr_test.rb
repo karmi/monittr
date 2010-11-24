@@ -12,7 +12,7 @@ module Monitr
 
       should "fetch info from Monit embedded web server" do
         assert_nothing_raised { Server.fetch }
-        assert_nothing_raised { Server.fetch('http://localhost:2812/_status?format=xml') }
+        assert_nothing_raised { Server.fetch('http://admin:monit@localhost:2812/_status?format=xml') }
         assert_raise(FakeWeb::NetConnectNotAllowedError) { Server.fetch('http://example.com') }
       end
 
