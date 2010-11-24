@@ -31,9 +31,9 @@ module Monitr
         super( { :name   => xml.xpath('name').first.content,
                  :status => xml.xpath('status').first.content.to_i,
                  :monitored => xml.xpath('monitor').first.content.to_i,
-                 :load   => xml.xpath('system/load/avg01').first.content.to_f,
-                 :cpu    => xml.xpath('system/cpu/user').first.content.to_f,
-                 :memory => xml.xpath('system/memory/percent').first.content.to_f
+                 :load   => (xml.xpath('system/load/avg01').first.content.to_f rescue nil),
+                 :cpu    => (xml.xpath('system/cpu/user').first.content.to_f rescue nil),
+                 :memory => (xml.xpath('system/memory/percent').first.content.to_f rescue nil)
                } )
       end
     end

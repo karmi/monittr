@@ -4,9 +4,9 @@
 <p>
 status: <%= monit.system.status %>,
 monitored: <%= monit.system.monitored %>,
-load: <%= monit.system.load %>,
-cpu:  <%= monit.system.cpu %>,
-memory: <%= monit.system.memory %>
+load: <%= monit.system.load || 'N/A' %>,
+cpu:  <%= monit.system.cpu || 'N/A' %>,
+memory: <%= monit.system.memory || 'N/A' %>
 </p>
 
 <h3>Filesystem</h3>
