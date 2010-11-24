@@ -5,8 +5,8 @@
   <div class="server">
     <h2>
       <strong>
-        <span class="dot status">&middot;</span>
-        <span class="dot monitored">&middot;</span>
+        <span class="dot status <%= monit.system.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+        <span class="dot monitored <%= monit.system.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
         <%= monit.system.name %>
       </strong>
 
@@ -24,8 +24,8 @@
         <% monit.filesystems.each do |fs| %>
         <li>
           <strong title="(<%= fs.usage %> of <%= fs.total %>)">
-            <span class="dot status">&middot;</span>
-            <span class="dot monitored">&middot;</span>
+            <span class="dot status <%= fs.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+            <span class="dot monitored <%= fs.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
             <%= fs.name %>
           </strong>
           <%= fs.percent %>%  
@@ -41,9 +41,10 @@
         <% monit.processes.each do |process| %>
         <li>
           <strong>
-            <span class="dot status">&middot;</span>
-            <span class="dot monitored">&middot;</span>
+            <span class="dot status <%= process.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+            <span class="dot monitored <%= process.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
             <%= process.name %>
+            <% unless process.monitored == 1 %><span class="label warning">NOT MONITORED</span><% end %>
           </strong>
 
           <small>

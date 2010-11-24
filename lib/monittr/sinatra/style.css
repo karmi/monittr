@@ -4,6 +4,23 @@
 #monittr .clear
   { clear:both; display:block; overflow:hidden; visibility:hidden; width:0; height:0 }
 
+#monittr .dot
+  { text-indent: -9000px;
+    background-color: #ccc;
+    width: 8px; height: 8px;
+    margin: 4px 0.25em 0 0;
+    display: block;
+    float: left;
+    -moz-border-radius: 8px;
+  	-webkit-border-radius: 8px;
+  	border-radius: 8px; }
+#monittr .dot.running
+  { background-color: green; }
+#monittr .dot.failure
+  { background-color: red; }
+#monittr .dot.warning
+  { background-color: orange; }
+
 #monittr .server
   { color: #222;
     background-color: #F8F8F8;
@@ -68,3 +85,21 @@
   { width: 20em;
     display: block;
     float: left; }
+
+#monittr .server .segment strong .label
+  { color: #fff;
+    background-color: #ccc;
+    font-size: 75%;
+    text-transform: uppercase;
+    font-weight: normal;
+    padding: 0.25em 0.5em 0.15em 0.5em;
+    -moz-border-radius:    0.5em;
+  	-webkit-border-radius: 0.5em;
+  	border-radius:         0.5em; }
+
+#monittr .server .segment strong .label.running
+  { background-color: green; }
+#monittr .server .segment strong .label.warning
+  { background-color: orange; }
+#monittr .server .segment strong .label.failure
+  { background-color: red; }
