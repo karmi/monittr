@@ -1,10 +1,10 @@
 require 'test_helper'
 
-module Monitr
+module Monittr
 
-  class MonitrTest < Test::Unit::TestCase
+  class MonittrTest < Test::Unit::TestCase
 
-    context "Monitr" do
+    context "Monittr" do
 
       setup do
         @server = Server.new( fixture_file('status.xml') )

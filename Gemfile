@@ -1,4 +1,4 @@
 source :gemcutter
 
-# Specify your gem's dependencies in monitr.gemspec
+# Specify your gem's dependencies in monittr.gemspec
 gemspec

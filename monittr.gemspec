@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
-require 'monitr/version'
+require 'monittr/version'
 
 Gem::Specification.new do |s|
-  s.name        = "monitr"
-  s.version     = Monitr::VERSION
+  s.name        = "monittr"
+  s.version     = Monittr::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Karel Minarik']
   s.email       = ['karmi@karmi.cz']

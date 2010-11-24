@@ -7,7 +7,7 @@ require 'fakeweb'
 require 'pathname'
 require 'turn' unless ENV["TM_FILEPATH"]
 
-require 'lib/monitr'
+require 'lib/monittr'
 
 class Test::Unit::TestCase
 

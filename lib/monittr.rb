@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'rest-client'
 require 'ostruct'
 
-module Monitr
+module Monittr
 
   # Represents one monitored system instance
   #

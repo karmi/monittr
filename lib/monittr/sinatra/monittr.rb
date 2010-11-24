@@ -2,11 +2,11 @@ require 'sinatra/base'
 require 'erb'
 
 module Sinatra
-  module MonitrHTML
+  module MonittrHTML
 
     module Helpers
       def monit
-        Monitr::Server.fetch(settings.monit_url)
+        Monittr::Server.fetch(settings.monit_url)
       end
 
       def monit_html
@@ -19,7 +19,7 @@ module Sinatra
     end
 
     def self.registered(app)
-      app.helpers MonitrHTML::Helpers
+      app.helpers MonittrHTML::Helpers
 
       app.set :monit_url,  'http://admin:monit@localhost:2812/_status?format=xml'
       app.set :template,   File.expand_path('../template.erb', __FILE__)
@@ -28,5 +28,5 @@ module Sinatra
 
   end
 
-  register MonitrHTML
+  register MonittrHTML
 end
