@@ -1,0 +1,31 @@
+<style>body { font-family: sans-serif; }</style>
+
+<h2>System: <em><%= monit.system.name %></em></h2>
+<p>
+status: <%= monit.system.status %>,
+monitored: <%= monit.system.monitored %>,
+load: <%= monit.system.load %>,
+cpu:  <%= monit.system.cpu %>,
+memory: <%= monit.system.memory %>
+</p>
+
+<h3>Filesystem</h3>
+<ul>
+  <% monit.filesystems.each do |fs| %>
+  <li>
+    <strong><%= fs.name %></strong>: <%= fs.percent %>% <small>(<%= fs.usage %> of <%= fs.total %>)</small>
+  </li>
+  <% end %>
+</ul>
+
+<h3>Processes</h3>
+<ul>
+  <% monit.processes.each do |process| %>
+  <li>
+    <strong><%= process.name %></strong> &nbsp; &nbsp; &mdash; &nbsp; &nbsp;
+    status: <%= process.status %>,
+    monitored: <%= process.monitored %>,
+    uptime: <%= (process.uptime / 3600) rescue 'N/A' %> hours
+  </li>
+  <% end %>
+</ul>
