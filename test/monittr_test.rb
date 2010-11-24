@@ -18,6 +18,7 @@ module Monittr
 
       should "return system info" do
         assert_not_nil     @server.system
+        assert_equal 0,    @server.system.status
         assert_equal 1,    @server.system.monitored
         assert_equal 'myapplication.cz', @server.system.name
         assert_equal 5.28, @server.system.load
@@ -31,6 +32,7 @@ module Monittr
 
         filesystem = @server.filesystems.first
         assert_not_nil filesystem
+        assert_equal 0, filesystem.status
         assert_equal 1, filesystem.monitored
         assert_equal 22.8, filesystem.percent
       end
@@ -41,6 +43,7 @@ module Monittr
 
         thin = @server.processes.first
         assert_not_nil thin
+        assert_equal 0, thin.status
         assert_equal 1, thin.monitored
         assert_equal 1.2, thin.memory
         assert_equal 0.0, thin.cpu

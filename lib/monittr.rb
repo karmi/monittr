@@ -46,7 +46,7 @@ module Monittr
     class Filesystem < Base
       def initialize(xml)
         super( { :name    => xml.xpath('name').first.content,
-                 :status  => xml.xpath('status').first.content,
+                 :status  => xml.xpath('status').first.content.to_i.to_i,
                  :monitored => xml.xpath('monitor').first.content.to_i,
                  :percent => xml.xpath('block/percent').first.content.to_f,
                  :usage   => xml.xpath('block/usage').first.content,
@@ -58,7 +58,7 @@ module Monittr
     class Process < Base
       def initialize(xml)
         super( { :name    => xml.xpath('name').first.content,
-                 :status  => xml.xpath('status').first.content,
+                 :status  => xml.xpath('status').first.content.to_i,
                  :monitored => xml.xpath('monitor').first.content.to_i,
                  :pid    => (xml.xpath('pid').first.content.to_i rescue nil),
                  :uptime => (xml.xpath('uptime').first.content.to_i rescue nil),
