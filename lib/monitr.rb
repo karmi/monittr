@@ -62,8 +62,8 @@ module Monitr
                  :monitored => xml.xpath('monitor').first.content.to_i,
                  :pid    => (xml.xpath('pid').first.content.to_i rescue nil),
                  :uptime => (xml.xpath('uptime').first.content.to_i rescue nil),
-                 :memory => (xml.xpath('memory/percent').first.content.to_i rescue nil),
-                 :cpu    => (xml.xpath('cpu/percent').first.content.to_i rescue nil)
+                 :memory => (xml.xpath('memory/percent').first.content.to_f rescue nil),
+                 :cpu    => (xml.xpath('cpu/percent').first.content.to_f rescue nil)
           
                } )
       end

@@ -25,7 +25,9 @@ memory: <%= monit.system.memory || 'N/A' %>
     <strong><%= process.name %></strong> &nbsp; &nbsp; &mdash; &nbsp; &nbsp;
     status: <%= process.status %>,
     monitored: <%= process.monitored %>,
-    uptime: <%= (process.uptime / 3600) rescue 'N/A' %> hours
+    uptime: <%= (process.uptime / 3600) rescue 'N/A' %> hours,
+    cpu: <%= process.cpu %> %,
+    memory: <%= process.memory %> %
   </li>
   <% end %>
 </ul>
