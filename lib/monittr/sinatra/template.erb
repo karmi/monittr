@@ -78,7 +78,7 @@
 $('#monittr .server .content').hide();
 
 $('#monittr .server h2').click(function() {
-  $(this).parent().find('.content').toggle('fast', function() { });
+  $(this).parent().toggleClass('expanded').find('.content').toggle('fast', function() { });
 });
 
 $('#toggle').toggle(

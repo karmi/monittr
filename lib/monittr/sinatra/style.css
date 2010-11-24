@@ -4,6 +4,11 @@
 #monittr .clear
   { clear:both; display:block; overflow:hidden; visibility:hidden; width:0; height:0 }
 
+#monittr .rounded
+  { -moz-border-radius: 0.5em;
+	  -webkit-border-radius: 0.5em;
+	  border-radius: 0.5em }
+
 #monittr #toggle
   { font-size: 80%;
     text-decoration: underline;
@@ -12,13 +17,13 @@
 #monittr .dot
   { text-indent: -9000px;
     background-color: #ccc;
-    width: 8px; height: 8px;
-    margin: 4px 0.25em 0 0;
+    width: 6px; height: 6px;
+    margin: 0.25em 0.25em 0 0;
     display: block;
     float: left;
-    -moz-border-radius: 8px;
-  	-webkit-border-radius: 8px;
-  	border-radius: 8px; }
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px; }
 #monittr .dot.running
   { background-color: green; }
 #monittr .dot.failure
@@ -29,13 +34,15 @@
 #monittr .server
   { color: #222;
     background-color: #F8F8F8;
-    margin: 0.25em 0 0 0; }
+    margin: 0.2em 0 0 0;
+    border: 1px solid #ccc; }
 
 #monittr .server h2
   { font-size: 14px;
     font-weight: normal;
     background-color: #ccc;
-    padding: 0.5em 0.5em 0.4em 0.5em; }
+    padding: 0.5em 0.5em 0.4em 0.5em;
+    margin: 0; }
 #monittr .server.running h2
   { background-color: #66E98A; }
 #monittr .server.failure h2
@@ -43,6 +50,14 @@
     background-color: #CC033E; }
 #monittr .server.failure h2 *
   { color: #fff !important; }
+
+#monittr .server.expanded h2
+  { -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-bottomright: 0;
+	  -webkit-border-radius-bottomleft: 0;
+	  -webkit-border-radius-bottomright: 0
+	  border-radius-bottomleft: 0;
+	  border-radius-bottomright: 0; }
 
 #monittr .server h2 small
   { font-size: 75%;
@@ -56,6 +71,9 @@
     text-transform: uppercase; }
 #monittr .server small .info .label
   { opacity: 0.6; }
+
+#monittr .server .content
+  { padding: 0.5em 0 0.5em 0; }
 
 #monittr .server .segment
   { margin-bottom: 1em;
