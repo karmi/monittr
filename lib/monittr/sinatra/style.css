@@ -1,1 +1,70 @@
-body { font-family: sans-serif; }
+#monittr
+  { font-family: sans-serif; }
+
+#monittr .clear
+  { clear:both; display:block; overflow:hidden; visibility:hidden; width:0; height:0 }
+
+#monittr .server
+  { color: #222;
+    background-color: #F8F8F8;
+    margin: 0.25em 0 0 0; }
+
+#monittr .server h2
+  { font-size: 14px;
+    font-weight: normal;
+    background-color: #ccc;
+    padding: 0.5em 0.5em 0.4em 0.5em; }
+#monittr .server.running h2
+  { background-color: #66E98A; }
+#monittr .server.failure h2
+  { color: #fff;
+    background-color: #CC033E; }
+#monittr .server.failure h2 *
+  { color: #fff !important; }
+
+#monittr .server h2 small
+  { font-size: 75%;
+    float: right; }
+
+#monittr .server .info
+  { margin-right: 1em; }
+
+#monittr .server small .info .label
+  { font-size: 90%;
+    text-transform: uppercase; }
+#monittr .server small .info .label
+  { opacity: 0.6; }
+
+#monittr .server .segment
+  { margin-bottom: 1em;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    float: none;
+    clear: both;
+    border-bottom: 1px solid #E5E5E5; }
+
+#monittr .server .segment h3
+  { color: #999;
+    font-size: 80%;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: 10em; }
+
+#monittr .server .segment ul
+  { font-size: 90%;
+    float: left;
+    margin: -0.3em 0 0 0;
+    padding: 0; }
+
+#monittr .server .segment ul li
+  { list-style-type: none;
+    padding: 0.25em;
+    border-bottom: 1px solid #ccc; }
+#monittr .server .segment ul li:last-child
+  { border-bottom: none; }
+#monittr .server .segment ul li strong
+  { width: 20em;
+    display: block;
+    float: left; }

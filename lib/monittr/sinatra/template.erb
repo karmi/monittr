@@ -1,33 +1,68 @@
 <style><%= monit_stylesheet %></style>
 
-<h2>Server: <em><%= monit.system.name %></em></h2>
-<p>
-status: <%= monit.system.status %>,
-monitored: <%= monit.system.monitored %>,
-load: <%= monit.system.load || 'N/A' %>,
-cpu:  <%= monit.system.cpu || 'N/A' %>,
-memory: <%= monit.system.memory || 'N/A' %>
-</p>
+<div id="monittr">
 
-<h3>Filesystem</h3>
-<ul>
-  <% monit.filesystems.each do |fs| %>
-  <li>
-    <strong><%= fs.name %></strong>: <%= fs.percent %>% <small>(<%= fs.usage %> of <%= fs.total %>)</small>
-  </li>
-  <% end %>
-</ul>
+  <div class="server">
+    <h2>
+      <strong>
+        <span class="dot status">&middot;</span>
+        <span class="dot monitored">&middot;</span>
+        <%= monit.system.name %>
+      </strong>
 
-<h3>Processes</h3>
-<ul>
-  <% monit.processes.each do |process| %>
-  <li>
-    <strong><%= process.name %></strong> &nbsp; &nbsp; &mdash; &nbsp; &nbsp;
-    status: <%= process.status %>,
-    monitored: <%= process.monitored %>,
-    uptime: <%= (process.uptime / 3600) rescue 'N/A' %> hours,
-    cpu: <%= process.cpu %> %,
-    memory: <%= process.memory %> %
-  </li>
-  <% end %>
-</ul>
+      <small>
+        <span class="info"><span class="label">load:   </span><%= monit.system.load   || 'N/A' %></span>
+        <span class="info"><span class="label">cpu:    </span><%= monit.system.cpu    || 'N/A' %></span>
+        <span class="info"><span class="label">memory: </span><%= monit.system.memory || 'N/A' %></span>
+        <span class="info"><span class="label">uptime: </span><%= monit.system.uptime || 'N/A' %></span>
+      </small>
+    </h2>
+
+    <div class="segment filesystem">
+      <h3>Filesystem</h3>
+      <ul class="clearfix">
+        <% monit.filesystems.each do |fs| %>
+        <li>
+          <strong title="(<%= fs.usage %> of <%= fs.total %>)">
+            <span class="dot status">&middot;</span>
+            <span class="dot monitored">&middot;</span>
+            <%= fs.name %>
+          </strong>
+          <%= fs.percent %>%  
+        </li>
+        <% end %>
+      </ul>
+      <div class="clear"></div>
+    </div><!-- /filesystem -->
+
+    <div class="segment processes">
+      <h3>Processes</h3>
+      <ul>
+        <% monit.processes.each do |process| %>
+        <li>
+          <strong>
+            <span class="dot status">&middot;</span>
+            <span class="dot monitored">&middot;</span>
+            <%= process.name %>
+          </strong>
+
+          <small>
+            <span class="info"><span class="label">cpu:    </span><%= process.cpu    || 'N/A' %></span>
+            <span class="info"><span class="label">memory: </span><%= process.memory || 'N/A' %></span>
+            <span class="info"><span class="label">uptime: </span><%= process.uptime || 'N/A' %></span>
+          </small>
+        </li>
+        <% end %>
+      </ul>
+      <div class="clear"></div>
+    </div><!-- /filesystem -->
+
+    <div class="segment connections clearfix">
+      <div class="clear"></div>
+    </div><!-- /connections-->
+
+    <div class="clear"></div>
+  </div><!-- /server -->
+
+  <div class="clear"></div>
+</div><!-- /monittr -->
