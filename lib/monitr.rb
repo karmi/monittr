@@ -5,7 +5,9 @@ require 'ostruct'
 module Monitr
   MONIT_URL = ENV['MONIT_URL'] || 'http://username:password@localhost:2812/_status?format=xml'
 
-  class Monit
+  # Represents one monitored system instance
+  #
+  class Server
 
     attr_reader :xml, :system, :filesystems, :processes
 
