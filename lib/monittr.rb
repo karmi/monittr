@@ -23,14 +23,22 @@ module Monittr
 
     def initialize(xml)
       @xml         = Nokogiri::XML(xml)
-      @system      = Services::System.new(@xml.xpath("//service[@type=5]").first)
-      @filesystems = @xml.xpath("//service[@type=0]").map { |xml| Services::Filesystem.new(xml) }
-      @processes   = @xml.xpath("//service[@type=3]").map { |xml| Services::Process.new(xml) }
+      if error = @xml.xpath('error').first
+        @system      = Services::Base.new :name    => error.attributes['name'].content,
+                                          :message => error.attributes['message'].content,
+                                          :status  => 3
+      else
+        @system      = Services::System.new(@xml.xpath("//service[@type=5]").first)
+        @filesystems = @xml.xpath("//service[@type=0]").map { |xml| Services::Filesystem.new(xml) }
+        @processes   = @xml.xpath("//service[@type=3]").map { |xml| Services::Process.new(xml) }
+      end
     end
 
     def self.fetch(url=nil)
       url = url || ENV['MONIT_URL'] || 'http://admin:monit@localhost:2812/_status?format=xml'
       self.new( RestClient.get(url) )
+    rescue Exception => e
+      self.new(%Q|<error status="3" name="#{e.class}" message="#{e.message}" />|)
     end
 
   end
@@ -51,6 +59,10 @@ module Monittr
                  :memory => (xml.xpath('system/memory/percent').first.content.to_f rescue nil),
                  :uptime => (xml.xpath('//server/uptime').first.content.to_i rescue nil)
                } )
+      rescue Exception => e
+        super( { :name => 'error',
+                 :status  => 3,
+                 :message => e.message } )
       end
     end
 
@@ -63,6 +75,10 @@ module Monittr
                  :usage   => xml.xpath('block/usage').first.content,
                  :total   => xml.xpath('block/total').first.content
                } )
+      rescue Exception => e
+       super( { :name => 'error',
+                :status  => 3,
+                :message => e.message } )
       end
     end
 
@@ -77,6 +93,10 @@ module Monittr
                  :cpu    => (xml.xpath('cpu/percent').first.content.to_f rescue nil)
           
                } )
+       rescue Exception => e
+        super( { :name => 'error',
+                 :status  => 3,
+                 :message => e.message } )
       end
     end
 

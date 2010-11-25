@@ -15,6 +15,24 @@ module Monittr
         end
       end
 
+      should "not fail on invalid URLS" do
+        assert_nothing_raised do
+          cluster = Monittr::Cluster.new %w[ NOTVALID
+                                             http://admin:monit@localhost:2812/_status?format=xml ]
+          assert_not_nil cluster.servers
+          assert_equal 2, cluster.servers.size
+        end
+      end
+
+      should "not fail on out-of-order URLs" do
+        cluster = Monittr::Cluster.new %w[ http://not-working/_status?format=xml
+                                           http://admin:monit@localhost:2812/_status?format=xml ]
+        assert_not_nil cluster.servers
+        assert_equal 2, cluster.servers.size
+        assert_equal 3, cluster.servers.first.system.status
+        assert_equal '500 Internal Server Error', cluster.servers.first.system.message
+      end
+
     end
 
     context "Server" do
@@ -23,10 +41,16 @@ module Monittr
         @server = Server.new( fixture_file('status.xml') )
       end
 
+      should "parse error XML on initialization" do
+        assert_nothing_raised do
+          server = Server.new(%Q|<error status="3" name="ERROR" message="MESSAGE" />|)
+          assert_equal 'ERROR', server.system.name
+        end
+      end
+
       should "fetch info from Monit embedded web server" do
         assert_nothing_raised { Server.fetch }
         assert_nothing_raised { Server.fetch('http://admin:monit@localhost:2812/_status?format=xml') }
-        assert_raise(FakeWeb::NetConnectNotAllowedError) { Server.fetch('http://example.com') }
       end
 
       should "return system info" do
@@ -63,6 +87,20 @@ module Monittr
       end
 
     end
+
+    [ Services::System, Services::Filesystem, Services::Process ].each do |klass|
+      context "#{klass}" do
+        should "deal with invalid XML" do        
+          assert_nothing_raised do
+            part = klass.new('KRUPITZOWKA')
+            assert_equal 'error', part.name
+          end
+        end
+      end
+    end
+
+
+    # ---------------------------------------------------------------------------
 
   end
 
