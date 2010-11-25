@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.files         = %w( README.markdown Rakefile LICENSE )
   s.files        += Dir.glob("lib/**/*")
   s.files        += Dir.glob("test/**/*")
+  s.files        += Dir.glob("examples/**/*")
 
   s.require_path  = 'lib'
 
