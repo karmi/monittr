@@ -51,6 +51,11 @@ module Monittr
   module Services
     class Base < OpenStruct
       TYPES = { 0 => "Filesystem", 1 => "Directory", 2 => "File", 3 => "Daemon", 4 => "Connection", 5 => "System" }
+
+      def value(matcher, converter=:to_s)
+        @xml.xpath(matcher).first.content.send(converter) rescue nil
+      end
+
       def inspect
         %Q|<#{self.class} name="#{name}" status="#{status}" message="#{message}">|
       end
@@ -58,32 +63,31 @@ module Monittr
 
     class System < Base
       def initialize(xml)
-        super( { :name   => xml.xpath('name').first.content,
-                 :status => xml.xpath('status').first.content.to_i,
-                 :monitored => xml.xpath('monitor').first.content.to_i,
-                 :load   => (xml.xpath('system/load/avg01').first.content.to_f rescue nil),
-                 :cpu    => (xml.xpath('system/cpu/user').first.content.to_f rescue nil),
-                 :memory => (xml.xpath('system/memory/percent').first.content.to_f rescue nil),
-                 :uptime => (xml.xpath('//server/uptime').first.content.to_i rescue nil)
+        @xml = xml
+        super( { :name      => value('name'                          ),
+                 :status    => value('status',                  :to_i),
+                 :monitored => value('monitor',                 :to_i),
+                 :load      => value('system/load/avg01',       :to_f),
+                 :cpu       => value('system/cpu/user',         :to_f),
+                 :memory    => value('system/memory/percent',   :to_f),
+                 :uptime    => value('//server/uptime',         :to_f)
                } )
-      rescue Exception => e
-        super( { :name => 'error',
-                 :status  => 3,
-                 :message => e.message } )
       end
     end
 
     class Filesystem < Base
       def initialize(xml)
-        super( { :name    => xml.xpath('name').first.content,
-                 :status  => xml.xpath('status').first.content.to_i.to_i,
-                 :monitored => xml.xpath('monitor').first.content.to_i,
-                 :percent => xml.xpath('block/percent').first.content.to_f,
-                 :usage   => xml.xpath('block/usage').first.content,
-                 :total   => xml.xpath('block/total').first.content
+        @xml = xml
+        super( { :name      => value('name'                          ),
+                 :status    => value('status',                  :to_i),
+                 :monitored => value('monitor',                 :to_i),
+                 :percent   => value('block/percent',           :to_f),
+                 :usage     => value('block/usage'                   ),
+                 :total     => value('block/total'                   )
                } )
       rescue Exception => e
-       super( { :name => 'error',
+        puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"
+       super( { :name => 'Error',
                 :status  => 3,
                 :message => e.message } )
       end
@@ -91,17 +95,19 @@ module Monittr
 
     class Process < Base
       def initialize(xml)
-        super( { :name    => xml.xpath('name').first.content,
-                 :status  => xml.xpath('status').first.content.to_i,
-                 :monitored => xml.xpath('monitor').first.content.to_i,
-                 :pid    => (xml.xpath('pid').first.content.to_i rescue nil),
-                 :uptime => (xml.xpath('uptime').first.content.to_i rescue nil),
-                 :memory => (xml.xpath('memory/percent').first.content.to_f rescue nil),
-                 :cpu    => (xml.xpath('cpu/percent').first.content.to_f rescue nil)
+        @xml = xml
+        super( { :name      => value('name'                          ),
+                 :status    => value('status',                  :to_i),
+                 :monitored => value('monitor',                 :to_i),
+                 :pid       => value('pid',                     :to_i),
+                 :uptime    => value('uptime',                  :to_i),
+                 :memory    => value('memory/percent',          :to_f),
+                 :cpu       => value('cpu/percent',             :to_i)
           
                } )
        rescue Exception => e
-        super( { :name => 'error',
+         puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"
+        super( { :name => 'Error',
                  :status  => 3,
                  :message => e.message } )
       end

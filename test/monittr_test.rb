@@ -93,7 +93,7 @@ module Monittr
         should "deal with invalid XML" do        
           assert_nothing_raised do
             part = klass.new('KRUPITZOWKA')
-            assert_equal 'error', part.name
+            assert_nil part.name
           end
         end
       end

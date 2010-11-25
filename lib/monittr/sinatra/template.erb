@@ -12,6 +12,7 @@
           <span class="dot status <%= server.system.status == 0 ? 'running' : 'failure' %>">&middot;</span>
           <span class="dot monitored <%= server.system.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
           <%= server.system.name %>
+          <%= "<em>#{server.system.message}</em>" if server.system.message %>
         </strong>
 
         <small>
