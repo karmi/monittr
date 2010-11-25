@@ -6,6 +6,8 @@ It loads information from the [web server embedded in _Monit_](http://mmonit.com
 
 It also displays the information in HTML with the provided helpers. You can use the default template, or provide your own. The default template is located in `lib/monittr/sinatra/template.erb`.
 
+![Screenshot: Monittr, a web interface for Monit statistics](https://github.com/karmi/monittr/raw/master/screenshot.png)
+
 ## Installation ##
 
     $ gem install monittr
