@@ -22,10 +22,11 @@ module Monittr
   #
   class Server
 
-    attr_reader :xml, :system, :filesystems, :processes
+    attr_reader :url, :xml, :system, :filesystems, :processes
 
-    def initialize(xml)
-      @xml         = Nokogiri::XML(xml)
+    def initialize(url, xml)
+      @url = url
+      @xml = Nokogiri::XML(xml)
       if error = @xml.xpath('error').first
         @system      = Services::Base.new :name    => error.attributes['name'].content,
                                           :message => error.attributes['message'].content,
@@ -41,9 +42,9 @@ module Monittr
     #
     def self.fetch(url=nil)
       url = url || ENV['MONIT_URL'] || 'http://admin:monit@localhost:2812/_status?format=xml'
-      self.new( RestClient.get(url) )
+      self.new url, RestClient.get(url)
     rescue Exception => e
-      self.new(%Q|<error status="3" name="#{e.class}" message="#{e.message}" />|)
+      self.new url, %Q|<error status="3" name="#{e.class}" message="#{e.message}" />|
     end
 
     def inspect

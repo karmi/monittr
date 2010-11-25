@@ -38,12 +38,12 @@ module Monittr
     context "Server" do
 
       setup do
-        @server = Server.new( fixture_file('status.xml') )
+        @server = Server.new( 'http://localhost:2812/_status?format=xml', fixture_file('status.xml') )
       end
 
       should "parse error XML on initialization" do
         assert_nothing_raised do
-          server = Server.new(%Q|<error status="3" name="ERROR" message="MESSAGE" />|)
+          server = Server.new 'http://example.com', %Q|<error status="3" name="ERROR" message="MESSAGE" />|
           assert_equal 'ERROR', server.system.name
         end
       end
@@ -51,6 +51,11 @@ module Monittr
       should "fetch info from Monit embedded web server" do
         assert_nothing_raised { Server.fetch }
         assert_nothing_raised { Server.fetch('http://admin:monit@localhost:2812/_status?format=xml') }
+      end
+
+      should "return the URL" do
+        server = Server.fetch('http://admin:monit@localhost:2812/_status?format=xml')
+        assert_equal 'http://admin:monit@localhost:2812/_status?format=xml', server.url
       end
 
       should "return system info" do
