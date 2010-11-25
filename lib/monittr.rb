@@ -41,12 +41,19 @@ module Monittr
       self.new(%Q|<error status="3" name="#{e.class}" message="#{e.message}" />|)
     end
 
+    def inspect
+      %Q|<#{self.class} name="#{system.name}" status="#{system.status}" message="#{system.message}">|
+    end
+
   end
 
 
   module Services
     class Base < OpenStruct
       TYPES = { 0 => "Filesystem", 1 => "Directory", 2 => "File", 3 => "Daemon", 4 => "Connection", 5 => "System" }
+      def inspect
+        %Q|<#{self.class} name="#{name}" status="#{status}" message="#{message}">|
+      end
     end
 
     class System < Base
