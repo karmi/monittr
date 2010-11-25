@@ -3,12 +3,22 @@ $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 require 'monittr/version'
 
 Gem::Specification.new do |s|
-  s.name        = "monittr"
-  s.version     = Monittr::VERSION
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Karel Minarik']
-  s.email       = ['karmi@karmi.cz']
-  s.summary     = "Interface for Monit XML status output"
+  s.name          = "monittr"
+  s.version       = Monittr::VERSION
+  s.platform      = Gem::Platform::RUBY
+  s.summary       = "Web interface for Monit statistics"
+  s.homepage      = "http://github.com/karmi/monittr"
+  s.authors       = [ 'Karel Minarik' ]
+  s.email         = 'karmi@karmi.cz'
+
+  s.files         = %w( README.markdown Rakefile LICENSE )
+  s.files        += Dir.glob("lib/**/*")
+  s.files        += Dir.glob("test/**/*")
+
+  s.require_path  = 'lib'
+
+  s.extra_rdoc_files  = [ "README.markdown", "LICENSE" ]
+  s.rdoc_options      = [ "--charset=UTF-8" ]
 
   s.required_rubygems_version = ">= 1.3.6"
 
@@ -21,7 +31,13 @@ Gem::Specification.new do |s|
   s.add_development_dependency "turn"
   s.add_development_dependency "fakeweb"
 
-  s.files        = `git ls-files`.split("\n")
-  s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
-  s.require_path = 'lib'
+  s.description = <<-DESC
+    Monittr provides a Ruby interface for displaying Monit statistics
+    in Sinatra based web applications.
+
+    It loads information from the web server embedded in Monit and
+    makes it accessible as Ruby objects.
+
+    It also displays the information in HTML with the provided helpers.
+  DESC
 end
