@@ -8,12 +8,10 @@ It also displays the information in HTML with the provided helpers. You can use 
 
 ![Screenshot: Monittr, a web interface for Monit statistics](https://github.com/karmi/monittr/raw/master/screenshot.png)
 
-## Installation ##
-
-    $ gem install monittr
-
 
 ## Usage ##
+
+First, clone or download the sources from [_Github_](https://github.com/karmi/monittr/zipball/master).
 
 You can try the interface in a IRB console:
 
@@ -65,6 +63,14 @@ set :template,   Proc.new { File.join(root, 'template.erb') }
 set :stylesheet, '/path/to/my/stylesheet'
 
 Please see the example application for more.
+
+
+## Installation ##
+
+Install the gem as dependency in your application from _Rubygems_:
+
+    $ gem install monittr
+
 
 ## Other Information ##
 
