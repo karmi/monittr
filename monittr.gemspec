@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.add_dependency "bundler", "~> 1.0.0"
   s.add_dependency "rest-client"
   s.add_dependency "nokogiri"
+  s.add_dependency "sinatra"
 
   s.add_development_dependency "shoulda"
   s.add_development_dependency "turn"
