@@ -19,7 +19,7 @@
           <span class="info"><span class="label">load:   </span><%= server.system.load   || 'N/A' %></span>
           <span class="info"><span class="label">cpu:    </span><%= server.system.cpu    || 'N/A' %></span>
           <span class="info"><span class="label">memory: </span><%= server.system.memory || 'N/A' %></span>
-          <span class="info"><span class="label">uptime: </span><%= server.system.uptime || 'N/A' %></span>
+          <span class="info"><span class="label">uptime: </span><%= time_in_words(server.system.uptime) || 'N/A' %></span>
         </small>
       </h2>
 
@@ -56,7 +56,7 @@
               <small>
                 <span class="info"><span class="label">cpu:    </span><%= process.cpu    || 'N/A' %></span>
                 <span class="info"><span class="label">memory: </span><%= process.memory || 'N/A' %></span>
-                <span class="info"><span class="label">uptime: </span><%= process.uptime || 'N/A' %></span>
+                <span class="info"><span class="label">uptime: </span><%= time_in_words(process.uptime) || 'N/A' %></span>
               </small>
             </li>
             <% end %>

@@ -81,7 +81,7 @@ module Monittr
                  :load      => value('system/load/avg01',       :to_f),
                  :cpu       => value('system/cpu/user',         :to_f),
                  :memory    => value('system/memory/percent',   :to_f),
-                 :uptime    => value('//server/uptime',         :to_f)
+                 :uptime    => value('//server/uptime',         :to_i)
                } )
       end
     end

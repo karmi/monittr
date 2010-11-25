@@ -32,6 +32,23 @@ module Sinatra
         app.settings.stylesheet ? File.read( app.settings.stylesheet ) : ''
       end
 
+      def time_in_words(seconds)
+        case seconds
+        when 0..60
+          "#{seconds        } seconds"
+        when 60..3600
+          "#{seconds/60     } minutes"
+        when 3600..86400
+          "#{seconds/3600   } hours"
+        when 86400..604800
+          "#{seconds/86400  } days"
+        when 604800..2419200
+          "#{seconds/604800 } weeks"
+        else
+          nil
+        end
+      end
+
     end
 
     def self.registered(app)
