@@ -17,7 +17,7 @@ You can try the interface in a IRB console:
 
     $ irb -Ilib -rubygems -rmonittr
 
-You have to pass one or more URLs to a running Monit web server.
+You have to pass one or more full URLs to a running Monit web server XML output, eg. `http://admin:monit@example.com:2812/_status?format=xml`.
 
 In case you don't have a running Monit handy, fake its output:
 
@@ -26,7 +26,7 @@ In case you don't have a running Monit handy, fake its output:
 
 Now, retrieve information from the cluster:
 
-    cluster = Monittr::Cluster.new 'http://localhost:2812/_status?format=xml'
+    cluster = Monittr::Cluster.new ['http://localhost:2812/_status?format=xml']
     cluster.servers.size
 
     server = cluster.servers.first
@@ -51,7 +51,7 @@ You should see the information about two faked Monit instances in your browser.
 
 Provide the URLs to _Monit_ instances by setting the appropriate option:
 
-    set :monit_urls,  ['http://localhost:2812/_status?format=xml', 'http://localhost:2812/_status?format=xml']
+    set :monit_urls,  ['http://production.example.com:2812/_status?format=xml', 'http://staging.example.com:2812/_status?format=xml']
 
 
 ## Customization ##
@@ -59,15 +59,21 @@ Provide the URLs to _Monit_ instances by setting the appropriate option:
 It's easy to customize the HTML output by setting the appropriate options in your _Sinatra_ application.
 
 
-set :template,   Proc.new { File.join(root, 'template.erb') }
-set :stylesheet, '/path/to/my/stylesheet'
+    set :template,   Proc.new { File.join(root, 'template.erb') }
+    set :stylesheet, '/path/to/my/stylesheet'
 
 Please see the example application for more.
 
 
 ## Installation ##
 
-Install the gem as dependency in your application from _Rubygems_:
+The best way how to install the gem is from the source:
+
+    $ git clone http://github.com/karmi/monittr.git
+    $ cd monittr
+    $ rake install
+
+Stable versions of the gem can be installed from _Rubygems_:
 
     $ gem install monittr
 
