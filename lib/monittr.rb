@@ -59,6 +59,11 @@ module Monittr
     class Base < OpenStruct
       TYPES = { 0 => "Filesystem", 1 => "Directory", 2 => "File", 3 => "Daemon", 4 => "Connection", 5 => "System" }
 
+      def load
+        # Note: the `load` gives some headaches, let's be explicit
+        @table[:load]
+      end
+
       def value(matcher, converter=:to_s)
         @xml.xpath(matcher).first.content.send(converter) rescue nil
       end
