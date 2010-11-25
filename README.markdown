@@ -17,16 +17,16 @@ You can try the interface in a IRB console:
 
     $ irb -Ilib -rubygems -rmonittr
 
-You have to pass one or more full URLs to a running Monit web server XML output, eg. `http://admin:monit@example.com:2812/_status?format=xml`.
+You have to pass one or more full URLs to a running Monit web server XML output, eg. `http://admin:monit@example.com:2812/`.
 
 In case you don't have a running Monit handy, fake its output:
 
     require 'fakeweb'
-    FakeWeb.register_uri(:get, 'http://localhost:2812/_status?format=xml', :body => File.read('test/fixtures/status.xml') ); nil
+    FakeWeb.register_uri(:get, 'http://localhost:2812/', :body => File.read('test/fixtures/status.xml') ); nil
 
 Now, retrieve information from the cluster:
 
-    cluster = Monittr::Cluster.new ['http://localhost:2812/_status?format=xml']
+    cluster = Monittr::Cluster.new ['http://localhost:2812/']
     cluster.servers.size
 
     server = cluster.servers.first
@@ -51,7 +51,7 @@ You should see the information about two faked Monit instances in your browser.
 
 Provide the URLs to _Monit_ instances by setting the appropriate option:
 
-    set :monit_urls,  ['http://production.example.com:2812/_status?format=xml', 'http://staging.example.com:2812/_status?format=xml']
+    set :monit_urls,  %w[ http://production.example.com:2812 http://staging.example.com:2812 ]
 
 
 ## Customization ##

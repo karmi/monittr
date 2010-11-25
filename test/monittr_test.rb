@@ -8,8 +8,8 @@ module Monittr
 
       should "be initialized with URLs" do
         assert_nothing_raised do
-          cluster = Monittr::Cluster.new %w[ http://admin:monit@localhost:2812/_status?format=xml
-                                             http://admin:monit@localhost:2812/_status?format=xml ]
+          cluster = Monittr::Cluster.new %w[ http://admin:monit@localhost:2812
+                                             http://admin:monit@localhost:2812 ]
           assert_not_nil cluster.servers
           assert_equal 2, cluster.servers.size
         end
@@ -17,16 +17,18 @@ module Monittr
 
       should "not fail on invalid URLS" do
         assert_nothing_raised do
-          cluster = Monittr::Cluster.new %w[ NOTVALID
-                                             http://admin:monit@localhost:2812/_status?format=xml ]
+          cluster = Monittr::Cluster.new %w[ ~INVALID
+                                             http://admin:monit@localhost:2812 ]
           assert_not_nil cluster.servers
           assert_equal 2, cluster.servers.size
+          assert_equal 3, cluster.servers.first.system.status
+          assert cluster.servers.first.system.message =~ /bad hostname/, "Should be bad hostname"
         end
       end
 
       should "not fail on out-of-order URLs" do
-        cluster = Monittr::Cluster.new %w[ http://not-working/_status?format=xml
-                                           http://admin:monit@localhost:2812/_status?format=xml ]
+        cluster = Monittr::Cluster.new %w[ http://not-working
+                                           http://admin:monit@localhost:2812 ]
         assert_not_nil cluster.servers
         assert_equal 2, cluster.servers.size
         assert_equal 3, cluster.servers.first.system.status
@@ -38,7 +40,7 @@ module Monittr
     context "Server" do
 
       setup do
-        @server = Server.new( 'http://localhost:2812/_status?format=xml', fixture_file('status.xml') )
+        @server = Server.new( 'http://localhost:2812', fixture_file('status.xml') )
       end
 
       should "parse error XML on initialization" do
@@ -50,12 +52,13 @@ module Monittr
 
       should "fetch info from Monit embedded web server" do
         assert_nothing_raised { Server.fetch }
-        assert_nothing_raised { Server.fetch('http://admin:monit@localhost:2812/_status?format=xml') }
+        assert_nothing_raised { Server.fetch('http://admin:monit@localhost:2812') }
+        assert_nothing_raised { Server.fetch('http://admin:monit@localhost:2812/') }
       end
 
       should "return the URL" do
-        server = Server.fetch('http://admin:monit@localhost:2812/_status?format=xml')
-        assert_equal 'http://admin:monit@localhost:2812/_status?format=xml', server.url
+        server = Server.fetch('http://admin:monit@localhost:2812')
+        assert_equal 'http://admin:monit@localhost:2812', server.url
       end
 
       should "return system info" do

@@ -58,7 +58,7 @@ module Sinatra
     def self.registered(app)
       app.helpers MonittrHTML::Helpers
 
-      app.set :monit_urls, ['http://admin:monit@localhost:2812/_status?format=xml']
+      app.set :monit_urls, ['http://admin:monit@localhost:2812']
       app.set :template,   File.expand_path('../template.erb', __FILE__)
       app.set :stylesheet, File.expand_path('../style.css', __FILE__)
     end
