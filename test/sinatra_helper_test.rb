@@ -6,7 +6,7 @@ class ExampleApp < Sinatra::Base
   register Sinatra::MonittrHTML
 
   get "/" do
-    monit_html
+    monittr.html
   end
 end
 

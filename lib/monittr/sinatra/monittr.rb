@@ -5,17 +5,33 @@ module Sinatra
   module MonittrHTML
 
     module Helpers
+
+      def monittr
+        @monittr ||= HTML.new(self)
+      end
+
+    end
+
+    class HTML
+
+      attr_reader :app
+
+      def initialize(app)
+        @app = app
+      end
+
       def cluster
-        Monittr::Cluster.new(settings.monit_urls)
+        Monittr::Cluster.new(app.settings.monit_urls)
       end
 
-      def monit_html
-        ERB.new( File.read( settings.template ) ).result(binding)
+      def html
+        ERB.new( File.read( app.settings.template ) ).result(binding)
       end
 
-      def monit_stylesheet
-        File.read( settings.stylesheet ) if settings.stylesheet
+      def stylesheet
+        app.settings.stylesheet ? File.read( app.settings.stylesheet ) : ''
       end
+
     end
 
     def self.registered(app)
