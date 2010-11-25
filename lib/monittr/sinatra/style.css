@@ -1,5 +1,5 @@
 #monittr
-  { font-family: sans-serif; }
+  { color: #222; font-family: sans-serif; }
 
 #monittr .clear
   { clear:both; display:block; overflow:hidden; visibility:hidden; width:0; height:0 }
@@ -8,6 +8,13 @@
   { -moz-border-radius: 0.5em;
 	  -webkit-border-radius: 0.5em;
 	  border-radius: 0.5em }
+
+#monittr a
+  { color: #222;
+    text-decoration: none; }
+
+#monittr a:hover
+  { text-decoration: underline; }
 
 #monittr #toggle
   { font-size: 80%;
