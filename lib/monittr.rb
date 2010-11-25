@@ -4,6 +4,9 @@ require 'ostruct'
 
 module Monittr
 
+  # Represents a cluster of monitored instances.
+  # Pass and array of URLs to the constructor.
+  #
   class Cluster
 
     attr_reader :servers
@@ -15,7 +18,7 @@ module Monittr
   end
 
 
-  # Represents one monitored system instance
+  # Represents one monitored instance
   #
   class Server
 
@@ -34,6 +37,8 @@ module Monittr
       end
     end
 
+    # Retrieve Monit status XML from the URL
+    #
     def self.fetch(url=nil)
       url = url || ENV['MONIT_URL'] || 'http://admin:monit@localhost:2812/_status?format=xml'
       self.new( RestClient.get(url) )
@@ -48,7 +53,9 @@ module Monittr
   end
 
 
+
   module Services
+
     class Base < OpenStruct
       TYPES = { 0 => "Filesystem", 1 => "Directory", 2 => "File", 3 => "Daemon", 4 => "Connection", 5 => "System" }
 
@@ -61,6 +68,10 @@ module Monittr
       end
     end
 
+    # A "system" service in Monit
+    #
+    # <service type="5">
+    #
     class System < Base
       def initialize(xml)
         @xml = xml
@@ -75,6 +86,12 @@ module Monittr
       end
     end
 
+    # A "filesystem" service in Monit
+    #
+    # http://mmonit.com/monit/documentation/monit.html#filesystem_flags_testing
+    #
+    # <service type="0">
+    #
     class Filesystem < Base
       def initialize(xml)
         @xml = xml
@@ -93,6 +110,12 @@ module Monittr
       end
     end
 
+    # A "process" service in Monit
+    #
+    # http://mmonit.com/monit/documentation/monit.html#pid_testing
+    #
+    # <service type="3">
+    #
     class Process < Base
       def initialize(xml)
         @xml = xml
