@@ -37,13 +37,17 @@ module Sinatra
         when 0..60
           "#{seconds        } seconds"
         when 60..3600
-          "#{seconds/60     } minutes"
+          value = seconds/60
+          "#{value} minute#{value > 1 ? 's' : ''}"
         when 3600..86400
-          "#{seconds/3600   } hours"
+          value = seconds/3600
+          "#{value} hour#{  value > 1 ? 's' : ''}"
         when 86400..604800
-          "#{seconds/86400  } days"
+          value = seconds/86400
+          "#{value} day#{   value > 1 ? 's' : ''}"
         when 604800..2419200
-          "#{seconds/604800 } weeks"
+          value = seconds/604800
+          "#{value} week#{  value > 1 ? 's' : ''}"
         else
           nil
         end
