@@ -75,20 +75,22 @@
 <script>if ('undefined' == typeof jQuery) { document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js\"></"+"script>"); }</script>
 
 <script>
-$('#monittr .server .content').hide();
+$(function() {
+  $('#monittr .server .content').hide();
 
-$('#monittr .server h2').click(function() {
-  $(this).parent().toggleClass('expanded').find('.content').toggle('fast', function() { });
+  $('#monittr .server h2').click(function() {
+    $(this).parent().toggleClass('expanded').find('.content').toggle('fast', function() { });
+  });
+
+  $('#toggle').toggle(
+    function() {
+      $('#monittr .server .content').show('fast');
+      $(this).html('- Collapse all');
+    },
+    function() {
+      $('#monittr .server .content').hide('fast');
+      $(this).html('+ Expand all');
+    }
+  );
 });
-
-$('#toggle').toggle(
-  function() {
-    $('#monittr .server .content').show('fast');
-    $(this).html('- Collapse all');
-  },
-  function() {
-    $('#monittr .server .content').hide('fast');
-    $(this).html('+ Expand all');
-  }
-);
 </script>
