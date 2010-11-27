@@ -7,7 +7,7 @@
     <uptime>937661</uptime>
     <poll>10</poll>
     <startdelay>0</startdelay>
-    <localhostname>myapplication.cz</localhostname>
+    <localhostname>application.com</localhostname>
     <controlfile>/usr/local/etc/monitrc</controlfile>
     <httpd>
       <address/>
@@ -461,56 +461,6 @@
   </service>
   <service type="3">
     <collected_sec>1290526733</collected_sec>
-    <collected_usec>939824</collected_usec>
-    <name>scheduler_workers</name>
-    <status>0</status>
-    <status_hint>0</status_hint>
-    <monitor>1</monitor>
-    <monitormode>0</monitormode>
-    <pendingaction>0</pendingaction>
-    <groups/>
-    <pid>12870</pid>
-    <ppid>12869</ppid>
-    <uptime>656652</uptime>
-    <children>1</children>
-    <memory>
-      <percent>0.6</percent>
-      <percenttotal>1.3</percenttotal>
-      <kilobyte>56596</kilobyte>
-      <kilobytetotal>116260</kilobytetotal>
-    </memory>
-    <cpu>
-      <percent>0.0</percent>
-      <percenttotal>0.0</percenttotal>
-    </cpu>
-  </service>
-  <service type="3">
-    <collected_sec>1290526733</collected_sec>
-    <collected_usec>939890</collected_usec>
-    <name>scheduler</name>
-    <status>0</status>
-    <status_hint>0</status_hint>
-    <monitor>1</monitor>
-    <monitormode>0</monitormode>
-    <pendingaction>0</pendingaction>
-    <groups/>
-    <pid>12681</pid>
-    <ppid>1</ppid>
-    <uptime>656765</uptime>
-    <children>0</children>
-    <memory>
-      <percent>0.7</percent>
-      <percenttotal>0.7</percenttotal>
-      <kilobyte>66200</kilobyte>
-      <kilobytetotal>66200</kilobytetotal>
-    </memory>
-    <cpu>
-      <percent>0.2</percent>
-      <percenttotal>0.2</percenttotal>
-    </cpu>
-  </service>
-  <service type="3">
-    <collected_sec>1290526733</collected_sec>
     <collected_usec>939892</collected_usec>
     <name>enrichment_fresh</name>
     <status>0</status>
@@ -523,7 +473,7 @@
   <service type="5">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939894</collected_usec>
-    <name>myapplication.cz</name>
+    <name>application.com</name>
     <status>0</status>
     <status_hint>0</status_hint>
     <monitor>1</monitor>
