@@ -9,8 +9,8 @@
     <div class="server rounded">
       <h2 class="rounded">
         <strong>
-          <span class="dot status <%= server.system.status == 0 ? 'running' : 'failure' %>">&middot;</span>
-          <span class="dot monitored <%= server.system.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
+          <span title="status" class="dot status <%= server.system.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+          <span title="monitored" class="dot monitored <%= server.system.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
           <a href="<%= server.url %>"><%= server.system.name %></a>
           <%= "<em>#{server.system.message}</em>" if server.system.message %>
         </strong>
