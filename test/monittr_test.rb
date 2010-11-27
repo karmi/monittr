@@ -65,7 +65,7 @@ module Monittr
         assert_not_nil     @server.system
         assert_equal 0,    @server.system.status
         assert_equal 1,    @server.system.monitored
-        assert_equal 'myapplication.cz', @server.system.name
+        assert_equal 'application.com', @server.system.name
         assert_equal 5.28, @server.system.load
         assert_equal 0,    @server.system.status
         assert_equal 937661, @server.system.uptime
@@ -84,7 +84,7 @@ module Monittr
 
       should "return processes info" do
         assert_not_nil @server.processes
-        assert_equal 15, @server.processes.size
+        assert_equal 13, @server.processes.size
 
         thin = @server.processes.first
         assert_not_nil thin
