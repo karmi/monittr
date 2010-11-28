@@ -1,6 +1,6 @@
 # Monittr #
 
-Monittr provides a Ruby interface for the [Monit](http://mmonit.com/monit/) systems management system. Its main goal is to display statistics from multiple Monit instances in an attractive web interface.
+Monittr provides a Ruby interface for the [Monit](http://mmonit.com/monit/) systems management system. Its main goal is to aggregate statistics from multiple Monit instances and display them in an attractive web interface.
 
 Monittr loads XML from the [web server embedded in Monit](http://mmonit.com/monit/documentation/monit.html#monit_httpd) and makes it accessible as Ruby objects. It also provides helpers for [Sinatra](http://www.sinatrarb.com/) applications, to display the information as HTML. You can insert the statistics into any page, or create a dedicated one. You can use the default template, or create your own. The default template is located in `lib/monittr/sinatra/template.erb` and pictured below.
 
@@ -15,11 +15,11 @@ the sources from [Github](https://github.com/karmi/monittr/), to get the latest 
     $ git clone http://github.com/karmi/monittr.git
     $ cd monittr
 
-You can try the _Ruby_ interface in a IRB console:
+You can try the Ruby interface in a IRB console:
 
     $ irb -Ilib -rubygems -rmonittr
 
-You have to pass one or more full URLs to a local or remote Monit web server output:
+You have to pass one or more URLs to a local or remote Monit [HTTP server](http://mmonit.com/monit/documentation/monit.html#monit_httpd):
 
     cluster = Monittr::Cluster.new ['http://localhost:2812/']
 
@@ -52,13 +52,22 @@ You can also check out the HTML display by running the example application:
     $ ruby examples/application.rb
     $ open http://localhost:4567/
 
-You should see the information about two faked Monit instances in your browser.
+You should see the information about two faked Monit instances in your browser. (You may need to comment out the FakeWeb section, if you're passing `localhost` URLs.)
 
-Provide the URLs to live Monit instances by setting the appropriate option in `application.rb`:
+To use the gem in your application, you have to require the Sinatra helper and provide the URLs to Monit instances:
 
+    require 'monittr/sinatra/monittr'
     set :monit_urls,  %w[ http://production.example.com:2812 http://staging.example.com:2812 ]
 
-You may also need to comment out the FakeWeb section, if you're passing `localhost` URLs.
+In a “classic” Sinatra application, you have to register the module explicitely as well:
+
+    register Sinatra::MonittrHTML
+
+Then, just call the helper in your template:
+
+    <%= monittr.html %>
+
+Use may use the example application as the starting point.
 
 
 ## Customization ##
@@ -67,8 +76,6 @@ It's easy to customize the HTML output by setting the appropriate options in you
 
     set :template,   Proc.new { File.join(root, 'template.erb') }
     set :stylesheet, '/path/to/my/stylesheet'
-
-Please see the example application for prepared examples.
 
 
 ## Installation ##
