@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name          = "monittr"
   s.version       = Monittr::VERSION
   s.platform      = Gem::Platform::RUBY
-  s.summary       = "Web interface for Monit statistics"
+  s.summary       = "A Ruby and web interface for Monit statistics"
   s.homepage      = "http://github.com/karmi/monittr"
   s.authors       = [ 'Karel Minarik' ]
   s.email         = 'karmi@karmi.cz'
@@ -33,12 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "fakeweb"
 
   s.description = <<-DESC
-    Monittr provides a Ruby interface for displaying Monit statistics
-    in Sinatra based web applications.
-
-    It loads information from the web server embedded in Monit and
-    makes it accessible as Ruby objects.
-
-    It also displays the information in HTML with the provided helpers.
+    Monittr provides a Ruby interface for loading and displaying statistics
+    from multiple Monit instances and helpers for Sinatra web applications.
   DESC
 end
