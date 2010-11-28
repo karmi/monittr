@@ -1,0 +1,4 @@
+* Display the info for server via a partial, refresh info via Ajax calls to Sinatra
+* Poll Monit periodically with EventMachine and stream info live into connected browsers with websockets
+* Helpers for Ruby on Rails
+* Tests for edge cases and weird setups (XML)
