@@ -1,3 +1,6 @@
+* Add "Connection" type of Monit service (http://mmonit.com/monit/documentation/monit.html#connection_testing)
+* Cleaner/sane Ruby interface (ie. server.system.running?, server.system.monitored? etc)
+* Separate modules/classes properly into files
 * Display the info for server via a partial, refresh info via Ajax calls to Sinatra
 * Poll Monit periodically with EventMachine and stream info live into connected browsers with websockets
 * Helpers for Ruby on Rails
