@@ -31,6 +31,8 @@ module Monittr
         @system      = Services::Base.new :name    => error.attributes['name'].content,
                                           :message => error.attributes['message'].content,
                                           :status  => 3
+        @filesystems = []
+        @processes   = []
       else
         @system      = Services::System.new(@xml.xpath("//service[@type=5]").first)
         @filesystems = @xml.xpath("//service[@type=0]").map { |xml| Services::Filesystem.new(xml) }

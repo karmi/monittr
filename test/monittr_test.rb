@@ -23,6 +23,8 @@ module Monittr
           assert_equal 2, cluster.servers.size
           assert_equal 3, cluster.servers.first.system.status
           assert cluster.servers.first.system.message =~ /bad hostname/, "Should be bad hostname"
+          assert_not_nil cluster.servers.first.filesystems
+          assert_equal [], cluster.servers.first.filesystems
         end
       end
 
