@@ -1,32 +1,45 @@
 # Monittr : A Web Interface for Monit Statistics #
 
-_Monittr_ provides a _Ruby_ interface for displaying [_Monit_](http://mmonit.com/) statistics in [_Sinatra_](http://www.sinatrarb.com/) based web applications.
+_Monittr_ provides a _Ruby_ interface for the [_Monit_](http://mmonit.com/monit/) systems management system.
 
-It loads information from the [web server embedded in _Monit_](http://mmonit.com/monit/documentation/monit.html#monit_httpd) and makes it accessible as Ruby objects.
+Its main goal is to display statistics from multiple _Monit_ instances in an attractive web interface.
 
-It also displays the information in HTML with the provided helpers. You can use the default template, or provide your own. The default template is located in `lib/monittr/sinatra/template.erb`.
+_Monittr_ loads XML from the [web server embedded in _Monit_](http://mmonit.com/monit/documentation/monit.html#monit_httpd) and makes it accessible as Ruby objects.
+
+It also provides helpers for [_Sinatra_](http://www.sinatrarb.com/) applications, to display the information as HTML. You can insert the _Monit_ information into any page, or create a dedicated page.
+
+You can use the default template, or create your own. The default template is located in `lib/monittr/sinatra/template.erb`.
+
+The default template is pictured below.
 
 ![Screenshot: Monittr, a web interface for Monit statistics](https://github.com/karmi/monittr/raw/master/screenshot.png)
 
 
 ## Usage ##
 
-First, clone or download the sources from [_Github_](https://github.com/karmi/monittr/zipball/master).
+First, clone or [download](https://github.com/karmi/monittr/zipball/master)
+the sources from [_Github_](https://github.com/karmi/monittr/), to get the latest version:
 
-You can try the interface in a IRB console:
+    $ git clone http://github.com/karmi/monittr.git
+    $ cd monittr
+
+You can try the _Ruby_ interface in a IRB console:
 
     $ irb -Ilib -rubygems -rmonittr
 
-You have to pass one or more full URLs to a running Monit web server XML output, eg. `http://admin:monit@example.com:2812/`.
-
-In case you don't have a running Monit handy, fake its output:
-
-    require 'fakeweb'
-    FakeWeb.register_uri(:get, 'http://localhost:2812/', :body => File.read('test/fixtures/status.xml') ); nil
-
-Now, retrieve information from the cluster:
+You have to pass one or more full URLs to a local or remote Monit web server output:
 
     cluster = Monittr::Cluster.new ['http://localhost:2812/']
+
+In case you don't have a running _Monit_ at hand, use the provided _FakeWeb_ setup:
+
+    require 'fakeweb'
+    FakeWeb.register_uri(:get, 'http://localhost:2812/_status?format=xml', :body => File.read('test/fixtures/status.xml') ); nil
+
+    cluster = Monittr::Cluster.new ['http://localhost:2812/']
+
+Now, you can display the information from the cluster:
+
     cluster.servers.size
 
     server = cluster.servers.first
@@ -42,16 +55,18 @@ Now, retrieve information from the cluster:
 
     ...
 
-You can also check out the HTML output by running the example application:
+You can also check out the HTML display by running the example application:
 
     $ ruby examples/application.rb
     $ open http://localhost:4567/
 
 You should see the information about two faked Monit instances in your browser.
 
-Provide the URLs to _Monit_ instances by setting the appropriate option:
+Provide the URLs to live _Monit_ instances by setting the appropriate option in `application.rb`:
 
     set :monit_urls,  %w[ http://production.example.com:2812 http://staging.example.com:2812 ]
+
+You may also need to comment out the _FakeWeb_ section, if you're passing `localhost` URLs.
 
 
 ## Customization ##
@@ -62,7 +77,7 @@ It's easy to customize the HTML output by setting the appropriate options in you
     set :template,   Proc.new { File.join(root, 'template.erb') }
     set :stylesheet, '/path/to/my/stylesheet'
 
-Please see the example application for more.
+Please see the example application for prepared examples.
 
 
 ## Installation ##
@@ -78,9 +93,11 @@ Stable versions of the gem can be installed from _Rubygems_:
     $ gem install monittr
 
 
-## Other Information ##
+## Other ##
 
-See the [_monit_](https://github.com/k33l0r/monit) gem for another Ruby interface to _Monit_.
+The code is useful for the intended purpose as it is, but if you've got any feedback, suggestions or patches, please send me an e-mail or use _Github_ Issues/Pull Requests.
+
+Check out the [_monit_](https://github.com/k33l0r/monit) gem for another Ruby interface to _Monit_.
 
 -----
 
