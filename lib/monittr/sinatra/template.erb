@@ -79,17 +79,25 @@
 $(function() {
   $('#monittr .server .content').hide();
 
-  $('#monittr .server h2').click(function() {
-    $(this).parent().toggleClass('expanded').find('.content').toggle('fast', function() { });
+  $('#monittr .server').bind('expand', function() {
+    $(this).addClass('expanded').find('.content').show('fast', function() { });
   });
+  $('#monittr .server').bind('collapse', function() {
+    $(this).removeClass('expanded').find('.content').hide('fast', function() { });
+  });
+
+  $('#monittr .server h2').toggle(
+    function() { $(this).parent().trigger('expand') },
+    function() { $(this).parent().trigger('collapse') }
+  );
 
   $('#toggle').toggle(
     function() {
-      $('#monittr .server .content').show('fast');
+      $('#monittr .server').trigger('expand');
       $(this).html('- Collapse all');
     },
     function() {
-      $('#monittr .server .content').hide('fast');
+      $('#monittr .server').trigger('collapse');
       $(this).html('+ Expand all');
     }
   );
