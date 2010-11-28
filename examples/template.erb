@@ -1,20 +1,30 @@
-<h1>A Customized template for <em>Monittr</em></h1>
+<style>
+  body { color: #222; font-size: 85%; }
+  a    { color: #222;  }
+  h1   { font-size: 18px; }
+  h2   { font-size: 16px; margin: 1em 0 .25em 0; }
+  h3   { font-size: 14px; margin: .25em 0 .25em 0; }
+  ul   { margin: 0 0 0 1.2em; padding: 0; list-style-type: square; }
+</style>
 
-<p>You can customize the template as you wish,
-  just set the path to it with something like this in your application:</p>
-
-<pre>set :template,  Proc.new { File.join(root, 'template.erb') }</pre>
+<h1>A Customized Template for <em>Monittr</em></h1>
 
 <hr>
 
-<% cluster.servers.each do |server| %>
-  <h2>Server: <em><%= server.system.name %></em> // status: <%= server.system.status %></h2>
+<% server = cluster.servers.first %>
 
-  <h3>Processes</h3>
-  <ul>
-    <% server.processes.each do |process| %>
-    <li><%= process.name %></li>
-    <% end %>
-  </ul>
+<h2>
+    Server: <em><a href="<%= server.url %>"><%= server.system.name %></a></em>
+    // status: <%= server.system.status    == 0 ? 'running'   : 'not running' %> and
+               <%= server.system.monitored == 1 ? 'monitored' : '<b>not</b> monitored' %>
+</h2>
 
-<% end %>
+<ul>
+  <% server.processes.each do |process| %>
+  <li>
+    <%= process.name %>
+    <em><%= process.status == 0 ? 'running' : 'stopped' %> and <%= process.monitored == 1 ? 'monitored' : '<b>not</b> monitored' %></em>
+    <small>(CPU: <%= process.cpu || 'N/A' %>%, MEM: <%= process.memory || 'N/A' %>%)</small>
+  </li>
+  <% end %>
+</ul>
