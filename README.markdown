@@ -67,7 +67,7 @@ Then, just call the helper in your template:
 
     <%= monittr.html %>
 
-Use may use the example application as the starting point.
+You may use the example application as the starting point.
 
 
 ## Customization ##
