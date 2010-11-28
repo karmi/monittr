@@ -1,16 +1,8 @@
-# Monittr : A Web Interface for Monit Statistics #
+# Monittr #
 
-Monittr provides a Ruby interface for the [Monit](http://mmonit.com/monit/) systems management system.
+Monittr provides a Ruby interface for the [Monit](http://mmonit.com/monit/) systems management system. Its main goal is to display statistics from multiple Monit instances in an attractive web interface.
 
-Its main goal is to display statistics from multiple Monit instances in an attractive web interface.
-
-Monittr loads XML from the [web server embedded in Monit](http://mmonit.com/monit/documentation/monit.html#monit_httpd) and makes it accessible as Ruby objects.
-
-It also provides helpers for [Sinatra](http://www.sinatrarb.com/) applications, to display the information as HTML. You can insert the _Monit_ information into any page, or create a dedicated page.
-
-You can use the default template, or create your own. The default template is located in `lib/monittr/sinatra/template.erb`.
-
-The default template is pictured below.
+Monittr loads XML from the [web server embedded in Monit](http://mmonit.com/monit/documentation/monit.html#monit_httpd) and makes it accessible as Ruby objects. It also provides helpers for [Sinatra](http://www.sinatrarb.com/) applications, to display the information as HTML. You can insert the statistics into any page, or create a dedicated one. You can use the default template, or create your own. The default template is located in `lib/monittr/sinatra/template.erb` and pictured below.
 
 ![Screenshot: Monittr, a web interface for Monit statistics](https://github.com/karmi/monittr/raw/master/screenshot.png)
 
@@ -94,7 +86,7 @@ Stable versions of the gem can be installed from Rubygems:
 
 ## Other ##
 
-The code is useful for the intended purpose as it is, but if you've got any feedback, suggestions or patches, please send me an e-mail or use Github Issues/Pull Requests.
+Any feedback, suggestions or patches are welcome via [e-mail](mailto:karmi@karmi.cz) or Github Issues/Pull Requests.
 
 Check out the [`monit`](https://github.com/k33l0r/monit) gem for another Ruby interface to _Monit_.
 
