@@ -5,7 +5,9 @@ require 'monittr'
 require 'sinatra'
 require 'fakeweb'
 
+# --- Require the Sinatra extension -------------------------------------------
 require 'monittr/sinatra/monittr'
+# -----------------------------------------------------------------------------
 
 # --- Comment these lines to enable loading data from http://localhost:2812 ---
 FakeWeb.register_uri(:get, 'http://localhost:2812/_status?format=xml',
