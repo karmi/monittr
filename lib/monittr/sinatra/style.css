@@ -15,6 +15,9 @@
 #monittr a:hover
   { text-decoration: underline; }
 
+#monittr p
+  { margin: 0; padding: 0; }
+
 #monittr #toggle
   { font-size: 80%;
     text-decoration: underline;
