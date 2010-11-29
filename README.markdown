@@ -54,12 +54,13 @@ You can also check out the HTML display by running the example application:
 
 You should see the information about two faked Monit instances in your browser. (You may need to comment out the FakeWeb section, if you're passing `localhost` URLs.)
 
-To use the gem in your application, you have to require the Sinatra helper and provide the URLs to Monit instances:
+To use the gem in a Sinatra application, you have to require the gem, the Sinatra helper and provide the URLs to Monit instances:
 
+    require 'monittr'
     require 'monittr/sinatra/monittr'
     set :monit_urls,  %w[ http://production.example.com:2812 http://staging.example.com:2812 ]
 
-In a “classic” Sinatra application, you have to register the module explicitely as well:
+In a “modular” Sinatra application, you have to register the module explicitely as well:
 
     register Sinatra::MonittrHTML
 
