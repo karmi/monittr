@@ -108,10 +108,12 @@ $(function() {
     $(this).removeClass('expanded').find('.content').hide('fast', function() { });
   });
 
-  $('#monittr .server h2').toggle(
-    function() { $(this).parent().trigger('expand') },
-    function() { $(this).parent().trigger('collapse') }
-  );
+  $('#monittr .server h2').click(
+    function(event) {
+      if ( event.target != this ) return true; // Enable clicking on links
+      $(this).parent().hasClass('expanded') ? $(this).parent().trigger('collapse') : $(this).parent().trigger('expand');
+  });
+
 
   $('#toggle').toggle(
     function() {
