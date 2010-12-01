@@ -63,7 +63,28 @@
             <% end %>
           </ul>
           <div class="clear"></div>
-        </div><!-- /filesystem -->
+        </div><!-- /processes -->
+
+        <div class="segment hosts">
+          <h3>Hosts</h3>
+          <ul>
+            <% server.hosts.each do |host| %>
+            <li>
+              <strong>
+                <span class="dot status <%= host.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+                <span class="dot monitored <%= host.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
+                <%= host.name %>
+                <% unless host.monitored == 1 %><span class="label warning">NOT MONITORED</span><% end %>
+              </strong>
+
+              <small>
+                <span class="info"><span class="label">response time: </span><%= host.response_time  || 'N/A' %></span>
+              </small>
+            </li>
+            <% end %>
+          </ul>
+          <div class="clear"></div>
+        </div><!-- /hosts -->
 
       </div><!-- /content -->
 
