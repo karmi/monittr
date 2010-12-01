@@ -6,7 +6,7 @@
 
 #monittr .rounded
   { -moz-border-radius: 0.5em;
-	  border-radius: 0.5em }
+      border-radius: 0.5em }
 
 #monittr a
   { color: #222;
@@ -65,8 +65,8 @@
 #monittr .server.expanded h2
   { -moz-border-radius-bottomleft: 0;
     -moz-border-radius-bottomright: 0;
-	  border-bottom-left-radius: 0;
-	  border-bottom-right-radius: 0; }
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0; }
 
 #monittr .server h2 small
   { font-size: 75%;
@@ -126,7 +126,7 @@
     font-weight: normal;
     padding: 0.25em 0.5em 0.15em 0.5em;
     -moz-border-radius:    0.5em;
-  	border-radius:         0.5em; }
+    border-radius:         0.5em; }
 
 #monittr .server .segment strong .label.running
   { background-color: green; }

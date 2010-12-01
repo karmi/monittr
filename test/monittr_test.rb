@@ -96,11 +96,21 @@ module Monittr
         assert_equal 0.0, thin.cpu
       end
 
+      should "return host info" do
+        assert_not_nil @server.hosts
+        assert_equal 1, @server.hosts.size
+
+        assert_equal 'www.google.com', @server.hosts[0].name
+        assert_equal 0, @server.hosts[0].status
+        assert_equal 1, @server.hosts[0].monitored
+        assert_equal 0.009, @server.hosts[0].response_time
+      end
+
     end
 
     [ Services::System, Services::Filesystem, Services::Process ].each do |klass|
       context "#{klass}" do
-        should "deal with invalid XML" do        
+        should "deal with invalid XML" do
           assert_nothing_raised do
             part = klass.new('KRUPITZOWKA')
             assert_nil part.name

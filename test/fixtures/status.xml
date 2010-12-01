@@ -15,6 +15,7 @@
       <ssl>0</ssl>
     </httpd>
   </server>
+
   <platform>
     <name>FreeBSD</name>
     <release>8.1-RELEASE</release>
@@ -23,6 +24,7 @@
     <cpu>4</cpu>
     <memory>8373908</memory>
   </platform>
+
   <service type="0">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>927817</collected_usec>
@@ -48,6 +50,7 @@
       <total>282622</total>
     </inode>
   </service>
+
   <service type="0">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>927867</collected_usec>
@@ -268,6 +271,7 @@
       <responsetime>0.000</responsetime>
     </port>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>938754</collected_usec>
@@ -301,6 +305,7 @@
       <responsetime>0.000</responsetime>
     </port>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939199</collected_usec>
@@ -334,6 +339,7 @@
       <responsetime>0.000</responsetime>
     </port>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939333</collected_usec>
@@ -359,6 +365,7 @@
       <percenttotal>5.9</percenttotal>
     </cpu>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939465</collected_usec>
@@ -384,6 +391,7 @@
       <percenttotal>0.6</percenttotal>
     </cpu>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939601</collected_usec>
@@ -409,6 +417,7 @@
       <percenttotal>0.0</percenttotal>
     </cpu>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939682</collected_usec>
@@ -434,6 +443,7 @@
       <percenttotal>0.0</percenttotal>
     </cpu>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939749</collected_usec>
@@ -459,6 +469,7 @@
       <percenttotal>0.0</percenttotal>
     </cpu>
   </service>
+
   <service type="3">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939892</collected_usec>
@@ -470,6 +481,7 @@
     <pendingaction>0</pendingaction>
     <groups/>
   </service>
+
   <service type="5">
     <collected_sec>1290526733</collected_sec>
     <collected_usec>939894</collected_usec>
@@ -496,4 +508,24 @@
       </memory>
     </system>
   </service>
+
+  <service type="4">
+      <name>www.google.com</name>
+      <collected_sec>1291193687</collected_sec>
+      <collected_usec>388019</collected_usec>
+      <status>0</status>
+      <status_hint>0</status_hint>
+      <monitor>1</monitor>
+      <monitormode>0</monitormode>
+      <pendingaction>0</pendingaction>
+      <port>
+          <hostname>www.google.com</hostname>
+          <portnumber>80</portnumber>
+          <request>/</request>
+          <protocol>HTTP</protocol>
+          <type>TCP</type>
+          <responsetime>0.009</responsetime>
+      </port>
+  </service>
+
 </monit>

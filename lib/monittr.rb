@@ -22,7 +22,7 @@ module Monittr
   #
   class Server
 
-    attr_reader :url, :xml, :system, :filesystems, :processes
+    attr_reader :url, :xml, :system, :filesystems, :processes, :hosts
 
     def initialize(url, xml)
       @url = url
@@ -33,10 +33,12 @@ module Monittr
                                           :status  => 3
         @filesystems = []
         @processes   = []
+        @hosts   = []
       else
         @system      = Services::System.new(@xml.xpath("//service[@type=5]").first)
         @filesystems = @xml.xpath("//service[@type=0]").map { |xml| Services::Filesystem.new(xml) }
         @processes   = @xml.xpath("//service[@type=3]").map { |xml| Services::Process.new(xml) }
+        @hosts       = @xml.xpath("//service[@type=4]").map { |xml| Services::Host.new(xml) }
       end
     end
 
@@ -62,7 +64,8 @@ module Monittr
   module Services
 
     class Base < OpenStruct
-      TYPES = { 0 => "Filesystem", 1 => "Directory", 2 => "File", 3 => "Daemon", 4 => "Connection", 5 => "System" }
+      # is this used anywhere?
+      TYPES = { 0 => "Filesystem", 1 => "Directory", 2 => "File", 3 => "Daemon", 4 => "Connection", 5 => "System", 4 => 'Host' }
 
       def load
         # Note: the `load` gives some headaches, let's be explicit
@@ -91,6 +94,7 @@ module Monittr
                  :load      => value('system/load/avg01',       :to_f),
                  :cpu       => value('system/cpu/user',         :to_f),
                  :memory    => value('system/memory/percent',   :to_f),
+                 :swap      => value('system/swap/percent',     :to_f),
                  :uptime    => value('//server/uptime',         :to_i)
                } )
       end
@@ -136,7 +140,28 @@ module Monittr
                  :uptime    => value('uptime',                  :to_i),
                  :memory    => value('memory/percent',          :to_f),
                  :cpu       => value('cpu/percent',             :to_i)
-          
+               } )
+       rescue Exception => e
+         puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"
+        super( { :name => 'Error',
+                 :status  => 3,
+                 :message => e.message } )
+      end
+    end
+
+    # A "host" service in Monit
+    #
+    # http://mmonit.com/monit/documentation/monit.html#connection_testing
+    #
+    # <service type="4">
+    #
+    class Host < Base
+      def initialize(xml)
+        @xml = xml
+        super( { :name          => value('name'                          ),
+                 :status        => value('status',                  :to_i),
+                 :monitored     => value('monitor',                 :to_i),
+                 :response_time => value('port/responsetime',       :to_f)
                } )
        rescue Exception => e
          puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"
