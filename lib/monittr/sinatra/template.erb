@@ -55,9 +55,10 @@
               </strong>
 
               <small>
-                <span class="info"><span class="label">cpu:    </span><%= process.cpu    || 'N/A' %></span>
-                <span class="info"><span class="label">memory: </span><%= process.memory || 'N/A' %></span>
-                <span class="info"><span class="label">uptime: </span><%= time_in_words(process.uptime) || 'N/A' %></span>
+                <span class="info"><span class="label">children: </span><%= process.children || 'N/A' %></span>
+                <span class="info"><span class="label">cpu:      </span><%= process.cpu      || 'N/A' %> / <%= process.cpu_total || 'N/A' %></span>
+                <span class="info"><span class="label">memory:   </span><%= process.memory   || 'N/A' %> / <%= process.memory_total || 'N/A' %></span>
+                <span class="info"><span class="label">uptime:   </span><%= time_in_words(process.uptime) || 'N/A' %></span>
               </small>
             </li>
             <% end %>
