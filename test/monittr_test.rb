@@ -37,6 +37,15 @@ module Monittr
         assert_equal '500 Internal Server Error', cluster.servers.first.system.message
       end
 
+      should "timeout properly for non-responding URLs" do
+        RestClient.expects(:get).raises(Timeout::Error)
+        cluster = Monittr::Cluster.new %w[ http://admin:monit@localhost:2812 ]
+        assert_not_nil cluster.servers
+        assert_equal 1, cluster.servers.size
+        assert_equal 3, cluster.servers.first.system.status
+        assert_equal 'Timeout::Error', cluster.servers.first.system.name
+      end
+
     end
 
     context "Server" do

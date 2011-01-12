@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'rest-client'
 require 'ostruct'
+require 'timeout'
 
 module Monittr
 
@@ -45,10 +46,12 @@ module Monittr
     # Retrieve Monit status XML from the URL
     #
     def self.fetch(url='http://admin:monit@localhost:2812')
-      monit_url  = url
-      monit_url += '/' unless url =~ /\/$/
-      monit_url += '_status?format=xml' unless url =~ /_status\?format=xml$/
-      self.new url, RestClient.get(monit_url)
+      Timeout::timeout(1) do
+        monit_url  = url
+        monit_url += '/' unless url =~ /\/$/
+        monit_url += '_status?format=xml' unless url =~ /_status\?format=xml$/
+        self.new url, RestClient.get(monit_url)
+      end
     rescue Exception => e
       self.new url, %Q|<error status="3" name="#{e.class}" message="#{e.message}" />|
     end
