@@ -50,7 +50,7 @@ module Monittr
       monit_url += '_status?format=xml' unless url =~ /_status\?format=xml$/
       self.new url, RestClient.get(monit_url)
     rescue Exception => e
-      self.new url, %Q|<error status="3" name="#{e.class}" message="#{e.message}" />|
+      self.new url, %Q|<error status="3" name="#{e.class}" message="#{url}: #{e.message}" />|
     end
 
     def inspect
@@ -150,7 +150,7 @@ module Monittr
                    :message => e.message } )
       end
     end
-          
+
     # A "host" service in Monit
     #
     # http://mmonit.com/monit/documentation/monit.html#connection_testing
