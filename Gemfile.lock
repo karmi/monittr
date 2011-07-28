@@ -1,0 +1,35 @@
+PATH
+  remote: .
+  specs:
+    monittr (0.0.5)
+      bundler (~> 1.0.0)
+      nokogiri
+      rest-client
+      sinatra
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    ansi (1.3.0)
+    fakeweb (1.3.0)
+    mime-types (1.16)
+    nokogiri (1.5.0)
+    rack (1.3.2)
+    rest-client (1.6.3)
+      mime-types (>= 1.16)
+    shoulda (2.11.3)
+    sinatra (1.2.6)
+      rack (~> 1.1)
+      tilt (>= 1.2.2, < 2.0)
+    tilt (1.3.2)
+    turn (0.8.2)
+      ansi (>= 1.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fakeweb
+  monittr!
+  shoulda
+  turn
