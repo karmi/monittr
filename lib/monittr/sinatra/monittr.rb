@@ -42,9 +42,11 @@ module Sinatra
         when 3600..86400
           value = seconds/3600
           "#{value} hour#{  value > 1 ? 's' : ''}"
-        else
+        when Numeric
           value = seconds/86400
           "#{value} day#{   value > 1 ? 's' : ''}"
+        else
+          nil
         end
       end
 
