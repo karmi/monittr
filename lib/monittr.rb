@@ -93,7 +93,7 @@ module Monittr
         super( { :name      => value('name'                          ),
                  :os        => value('//platform/name'               ),
                  :osversion => value('//platform/release'            ),
-                 :arch      => value('//platform/machine',           ),
+                 :arch      => value('//platform/machine'            ),
                  :memtotal  => value('//platform/memory',       :to_i),
                  :swaptotal => value('//platform/swap',         :to_i),
                  :cputotal  => value('//platform/cpu',          :to_i),
