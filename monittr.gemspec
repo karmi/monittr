@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "turn"
   s.add_development_dependency "fakeweb"
   s.add_development_dependency "mocha"
+  s.add_development_dependency "rack-test"
 
   s.description = <<-DESC
     Monittr provides a Ruby interface for loading and displaying statistics
