@@ -91,6 +91,12 @@ module Monittr
       def initialize(xml)
         @xml = xml
         super( { :name      => value('name'                          ),
+                 :os        => value('//platform/name'               ),
+                 :osversion => value('//platform/release'            ),
+                 :arch      => value('//platform/machine'            ),
+                 :memtotal  => value('//platform/memory',       :to_i),
+                 :swaptotal => value('//platform/swap',         :to_i),
+                 :cputotal  => value('//platform/cpu',          :to_i),
                  :status    => value('status',                  :to_i),
                  :monitored => value('monitor',                 :to_i),
                  :load      => value('system/load/avg01',       :to_f),
@@ -111,12 +117,15 @@ module Monittr
     class Filesystem < Base
       def initialize(xml)
         @xml = xml
-        super( { :name      => value('name'                          ),
-                 :status    => value('status',                  :to_i),
-                 :monitored => value('monitor',                 :to_i),
-                 :percent   => value('block/percent',           :to_f),
-                 :usage     => value('block/usage'                   ),
-                 :total     => value('block/total'                   )
+        super( { :name            => value('name'                          ),
+                 :status          => value('status',                  :to_i),
+                 :monitored       => value('monitor',                 :to_i),
+                 :percent         => value('block/percent',           :to_f),
+                 :usage           => value('block/usage'                   ),
+                 :total           => value('block/total'                   ),
+                 :inode_percent   => value('inode/percent',           :to_f),
+                 :inode_usage     => value('inode/usage'                   ),
+                 :inode_total     => value('inode/total'                   )
                } )
         rescue Exception => e
           puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"
@@ -135,13 +144,16 @@ module Monittr
     class Process < Base
       def initialize(xml)
         @xml = xml
-        super( { :name      => value('name'                          ),
-                 :status    => value('status',                  :to_i),
-                 :monitored => value('monitor',                 :to_i),
-                 :pid       => value('pid',                     :to_i),
-                 :uptime    => value('uptime',                  :to_i),
-                 :memory    => value('memory/percent',          :to_f),
-                 :cpu       => value('cpu/percent',             :to_i)
+        super( { :name            => value('name'                               ),
+                 :status          => value('status',                       :to_i),
+                 :monitored       => value('monitor',                      :to_i),
+                 :pid             => value('pid',                          :to_i),
+                 :uptime          => value('uptime',                       :to_i),
+                 :memory          => value('memory/percent',               :to_f),
+                 :cpu             => value('cpu/percent',                  :to_i),
+                 :total_memory    => value('memory/percenttotal',          :to_f),
+                 :total_cpu       => value('cpu/percenttotal',             :to_i),
+                 :response_time   => value('port/responsetime',            :to_i)
                } )
         rescue Exception => e
           puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"

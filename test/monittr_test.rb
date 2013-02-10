@@ -73,13 +73,19 @@ module Monittr
       end
 
       should "return system info" do
-        assert_not_nil     @server.system
-        assert_equal 0,    @server.system.status
-        assert_equal 1,    @server.system.monitored
+        assert_not_nil          @server.system
+        assert_equal 0,         @server.system.status
+        assert_equal 1,         @server.system.monitored
         assert_equal 'application.com', @server.system.name
-        assert_equal 5.28, @server.system.load
-        assert_equal 0,    @server.system.status
-        assert_equal 937661, @server.system.uptime
+        assert_equal 5.28,      @server.system.load
+        assert_equal 0,         @server.system.status
+        assert_equal 937661,    @server.system.uptime
+        assert_equal 'FreeBSD', @server.system.os
+        assert_equal '8.1-RELEASE', @server.system.osversion
+        assert_equal 'amd64',   @server.system.arch
+        assert_equal 4,         @server.system.cputotal
+        assert_equal 8373908,   @server.system.memtotal
+        assert_equal nil,       @server.system.swaptotal
       end
 
       should "return filesystems info" do
@@ -91,6 +97,7 @@ module Monittr
         assert_equal 0, filesystem.status
         assert_equal 1, filesystem.monitored
         assert_equal 22.8, filesystem.percent
+        assert_equal 0.8, filesystem.inode_percent
       end
 
       should "return processes info" do
