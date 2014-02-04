@@ -53,7 +53,7 @@ module Monittr
         self.new url, RestClient.get(monit_url)
       end
     rescue Exception => e
-      self.new url, %Q|<error status="3" name="#{e.class}" message="#{e.message}" />|
+      self.new url, %Q|<error status="3" name="#{e.class}" message="#{url}: #{e.message}" />|
     end
 
     def inspect
@@ -140,8 +140,11 @@ module Monittr
                  :monitored => value('monitor',                 :to_i),
                  :pid       => value('pid',                     :to_i),
                  :uptime    => value('uptime',                  :to_i),
+                 :children  => value('children',                :to_i),
                  :memory    => value('memory/percent',          :to_f),
-                 :cpu       => value('cpu/percent',             :to_i)
+                 :memory_total => value('memory/percenttotal',  :to_f),
+                 :cpu       => value('cpu/percent',             :to_f),
+                 :cpu_total => value('cpu/percenttotal',        :to_f)
                } )
         rescue Exception => e
           puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"
@@ -150,7 +153,7 @@ module Monittr
                    :message => e.message } )
       end
     end
-          
+
     # A "host" service in Monit
     #
     # http://mmonit.com/monit/documentation/monit.html#connection_testing

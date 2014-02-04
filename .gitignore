@@ -1,6 +1,5 @@
 .DS_Store
 pkg/*
 *.gem
-Gemfile.lock
 tmp/
 coverage/
