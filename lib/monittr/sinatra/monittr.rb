@@ -1,6 +1,8 @@
 require 'sinatra/base'
 require 'erb'
 
+require 'date'
+
 module Sinatra
   module MonittrHTML
 
@@ -51,6 +53,10 @@ module Sinatra
         else
           nil
         end
+      end
+
+      def timestamp_to_date(timestamp)
+        DateTime.strptime(timestamp.to_s, '%s').strftime('%F %T')
       end
 
     end

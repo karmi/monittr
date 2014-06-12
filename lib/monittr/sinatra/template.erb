@@ -25,6 +25,7 @@
       </h2>
 
       <div class="content">
+
         <div class="segment filesystems">
           <h3>Filesystem</h3>
           <ul class="clearfix">
@@ -42,6 +43,24 @@
           <div class="clear"></div>
         </div><!-- /filesystems -->
 
+        <div class="segment files">
+          <h3>File</h3>
+          <ul class="clearfix">
+            <% server.files.each do |f| %>
+            <li>
+              <strong title="(<%= f.usage %> of <%= f.total %>)">
+                <span class="dot status <%= f.status == 0 ? 'running' : 'failure' %>">&middot;</span>
+                <span class="dot monitored <%= f.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
+                <%= f.name %>
+              </strong>
+              <small>
+                <span class="info"><span class="label">timestamp:</span> <%= timestamp_to_date(f.timestamp) %></span>
+              </small>
+            </li>
+            <% end %>
+          </ul>
+          <div class="clear"></div>
+        </div><!-- /filesystems -->
         <div class="segment processes">
           <h3>Processes</h3>
           <ul>
