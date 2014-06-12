@@ -23,7 +23,7 @@ module Monittr
   #
   class Server
 
-    attr_reader :url, :xml, :system, :filesystems, :processes, :hosts
+    attr_reader :url, :xml, :system, :files, :filesystems, :processes, :hosts
 
     def initialize(url, xml)
       @url = url
@@ -33,11 +33,13 @@ module Monittr
                                           :message => error.attributes['message'].content,
                                           :status  => 3
         @filesystems = []
+        @files       = []
         @processes   = []
         @hosts   = []
       else
         @system      = Services::System.new(@xml.xpath("//service[@type=5]").first)
         @filesystems = @xml.xpath("//service[@type=0]").map { |xml| Services::Filesystem.new(xml) }
+        @files      = @xml.xpath("//service[@type=2]").map { |xml| Services::File.new(xml) }
         @processes   = @xml.xpath("//service[@type=3]").map { |xml| Services::Process.new(xml) }
         @hosts       = @xml.xpath("//service[@type=4]").map { |xml| Services::Host.new(xml) }
       end
@@ -98,6 +100,24 @@ module Monittr
                  :memory    => value('system/memory/percent',   :to_f),
                  :swap      => value('system/swap/percent',     :to_f),
                  :uptime    => value('//server/uptime',         :to_i)
+               } )
+      end
+    end
+
+    # A "file" service in Monit
+    #
+    # <service type="2">
+    #
+    class File < Base
+      def initialize(xml)
+        @xml = xml
+        super( { :name      => value('name'                          ),
+                 :status    => value('status',                  :to_i),
+                 :monitored => value('monitor',                 :to_i),
+                 :uid       => value('uid',                     :to_f),
+                 :gid       => value('gid',                     :to_f),
+                 :size      => value('size',                    :to_f),
+                 :timestamp => value('timestamp',               :to_i)
                } )
       end
     end

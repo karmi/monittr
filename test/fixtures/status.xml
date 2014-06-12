@@ -515,5 +515,19 @@
           <responsetime>0.009</responsetime>
       </port>
   </service>
-
+  <service type="2">
+      <name>chef-client-lastrun</name>
+      <collected_sec>1402579448</collected_sec>
+      <collected_usec>520224</collected_usec>
+      <status>0</status>
+      <status_hint>0</status_hint>
+      <monitor>1</monitor>
+      <monitormode>0</monitormode>
+      <pendingaction>0</pendingaction>
+      <mode>644</mode>
+      <uid>0</uid>
+      <gid>0</gid>
+      <timestamp>1402578728</timestamp>
+      <size>5</size>
+  </service>
 </monit>
