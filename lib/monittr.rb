@@ -114,9 +114,9 @@ module Monittr
         super( { :name      => value('name'                          ),
                  :status    => value('status',                  :to_i),
                  :monitored => value('monitor',                 :to_i),
-                 :uid       => value('uid',                     :to_f),
-                 :gid       => value('gid',                     :to_f),
-                 :size      => value('size',                    :to_f),
+                 :uid       => value('uid',                     :to_i),
+                 :gid       => value('gid',                     :to_i),
+                 :size      => value('size',                    :to_i),
                  :timestamp => value('timestamp',               :to_i)
                } )
       end
