@@ -38,12 +38,11 @@ module Monittr
       end
 
       should "timeout properly for non-responding URLs" do
-        RestClient.expects(:get).raises(Timeout::Error)
-        cluster = Monittr::Cluster.new %w[ http://admin:monit@localhost:2812 ]
+        cluster = Monittr::Cluster.new %w[ http://admin@timeout.net:2812 ]
         assert_not_nil cluster.servers
         assert_equal 1, cluster.servers.size
         assert_equal 3, cluster.servers.first.system.status
-        assert_equal 'Timeout::Error', cluster.servers.first.system.name
+        assert_equal 'RestClient::RequestTimeout', cluster.servers.first.system.name
       end
 
     end
