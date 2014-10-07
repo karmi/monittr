@@ -165,7 +165,6 @@ module Monittr
                  :monitored     => value('monitor',                 :to_i),
                  :host_name     => value('port/hostname'                 ),
                  :port_number   => value('port/portnumber'               ),
-                 :port_number   => value('port/portnumber'               ),
                  :protocol      => value('port/protocol'                 ),
                  :type          => value('port/type'                     ),
                  :response_time => value('port/responsetime'             )
