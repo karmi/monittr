@@ -116,7 +116,10 @@ module Monittr
                  :monitored => value('monitor',                 :to_i),
                  :percent   => value('block/percent',           :to_f),
                  :usage     => value('block/usage'                   ),
-                 :total     => value('block/total'                   )
+                 :total     => value('block/total'                   ),
+                 :inode_percent   => value('inode/percent',           :to_f),
+                 :inode_usage     => value('inode/usage'                   ),
+                 :inode_total     => value('inode/total'                   )
                } )
         rescue Exception => e
           puts "ERROR: #{e.class} -- #{e.message}, In: #{e.backtrace.first}"

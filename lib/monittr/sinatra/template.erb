@@ -30,12 +30,17 @@
           <ul class="clearfix">
             <% server.filesystems.each do |fs| %>
             <li>
-              <strong title="(<%= fs.usage %> of <%= fs.total %>)">
+              <strong title="(space <%= fs.usage %> of <%= fs.total %>, inode <%= fs.inode_usage %> of <%= fs.inode_total %>)">
                 <span class="dot status <%= fs.status == 0 ? 'running' : 'failure' %>">&middot;</span>
                 <span class="dot monitored <%= fs.monitored == 1 ? 'running' : 'failure' %>">&middot;</span>
                 <%= fs.name %>
               </strong>
-              <%= fs.percent %>%  
+
+              <small>
+                <span class="info"><span class="label">space:    </span><%= fs.percent    || 'N/A' %>%</span>
+                <span class="info"><span class="label">inode:    </span><%= fs.inode_percent || 'N/A' %>%</span>
+              </small>
+
             </li>
             <% end %>
           </ul>
@@ -59,6 +64,7 @@
                 <span class="info"><span class="label">memory: </span><%= process.memory || 'N/A' %></span>
                 <span class="info"><span class="label">uptime: </span><%= time_in_words(process.uptime) || 'N/A' %></span>
               </small>
+
             </li>
             <% end %>
           </ul>
