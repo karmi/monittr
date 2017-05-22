@@ -45,12 +45,16 @@ module Monittr
 
     # Retrieve Monit status XML from the URL
     #
+
+### ART ### "verify_ssl" disabled now !!!
+
     def self.fetch(url='http://admin:monit@localhost:2812')
       Timeout::timeout(1) do
         monit_url  = url
         monit_url += '/' unless url =~ /\/$/
         monit_url += '_status?format=xml' unless url =~ /_status\?format=xml$/
-        self.new url, RestClient.get(monit_url)
+        #self.new url, RestClient.get(monit_url)
+        self.new url, RestClient::Request.execute(method: :get, url: monit_url, verify_ssl: false)
       end
     rescue Exception => e
       self.new url, %Q|<error status="3" name="#{e.class}" message="#{e.message}" />|
